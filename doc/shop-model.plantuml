@@ -1,0 +1,27 @@
+@startuml
+class Cart {
+  -id : CustomerId
+  +addProduct(product : Product, quantity : int)
+  +numberOfItems() : int
+  +subTotal() : Money
+}
+
+Cart *-  CartLineItem
+
+class CartLineItem {
+  -quantity : int
+  +increaseQuantityBy(value : int)
+  +subTotal() : Money
+}
+
+CartLineItem -> Product
+
+class Product {
+  -id : ProductId
+  -name : String
+  -description : String
+  -price : Money
+  -itemsInStock : int
+  +addToCart(cart : Cart, quantity : int)
+}
+@enduml
