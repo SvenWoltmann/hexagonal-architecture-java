@@ -23,6 +23,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <pmd.version>6.55.0</pmd.version>
+
+        <!-- SonarCloud configuration -->
+        <sonar.projectKey>SvenWoltmann_hexagonal-architecture-java</sonar.projectKey>
+        <sonar.moduleKey>hexagonal-architecture-java:${project.artifactId}</sonar.moduleKey>
+        <sonar.organization>svenwoltmann</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+
+        <sonar.java.spotbugs.reportPaths>target/spotbugsXml.xml</sonar.java.spotbugs.reportPaths>
+        <sonar.java.pmd.reportPaths>target/pmd.xml</sonar.java.pmd.reportPaths>
+        <sonar.java.checkstyle.reportPaths>target/checkstyle-result.xml</sonar.java.checkstyle.reportPaths>
+        <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
     <dependencies>

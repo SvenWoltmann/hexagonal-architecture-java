@@ -1,0 +1,58 @@
+name: build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-jvm:
+    name: Build
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch all history for all branches and tags (otherwise Sonar will report: "Shallow clone detected, no blame information will be provided.")
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: 19
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Verify code format
+        run: mvn -B spotless:check
+
+      - name: Compile, test, and verify
+        run: mvn -B verify -Ptest-coverage,code-analysis
+
+      - name: Analyze code with Sonar
+        if: ${{ env.SONAR_TOKEN }} # the token is not available in Dependabot-triggered builds
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B package org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DskipTests
+        # We're building twice (takes only 2s) as otherwise, Sonar would complain:
+        #   The following dependencies could not be resolved at this point of the build but seem to be part of the reactor:
+        #   o ...
+        #   Try running the build up to the lifecycle phase "package"
+        #
+        # If the "package" phase takes much longer in the future, this step and the previous one should be combined into one.
