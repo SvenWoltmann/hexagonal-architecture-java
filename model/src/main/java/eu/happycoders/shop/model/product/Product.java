@@ -9,6 +9,7 @@ import eu.happycoders.shop.model.money.Money;
  *
  * @author Sven Woltmann
  */
+@SuppressWarnings("PMD.ImmutableField") // name, description, etc... should eventually be modifiable
 public class Product {
 
   private final ProductId id;
