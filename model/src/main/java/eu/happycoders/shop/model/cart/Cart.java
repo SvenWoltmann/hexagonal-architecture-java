@@ -8,6 +8,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A shopping cart of a particular customer, containing several line items.
+ *
+ * @author Sven Woltmann
+ */
 public class Cart {
 
   private final CustomerId id; // cart ID = customer ID

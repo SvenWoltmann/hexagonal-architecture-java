@@ -3,6 +3,11 @@ package eu.happycoders.shop.model.cart;
 import eu.happycoders.shop.model.money.Money;
 import eu.happycoders.shop.model.product.Product;
 
+/**
+ * A shopping cart line item with a product and quantity.
+ *
+ * @author Sven Woltmann
+ */
 public class CartLineItem {
 
   private final Product product;

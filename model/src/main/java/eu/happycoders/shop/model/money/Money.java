@@ -4,6 +4,11 @@ import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Objects;
 
+/**
+ * A money value object consisting of a currency and an amount.
+ *
+ * @author Sven Woltmann
+ */
 public record Money(Currency currency, BigDecimal amount) {
 
   public static final Currency EUR = Currency.getInstance("EUR");

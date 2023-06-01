@@ -1,5 +1,10 @@
 package eu.happycoders.shop.model.customer;
 
+/**
+ * A customer ID value object (enabling type-safety and validation).
+ *
+ * @author Sven Woltmann
+ */
 public record CustomerId(int value) {
 
   public CustomerId {

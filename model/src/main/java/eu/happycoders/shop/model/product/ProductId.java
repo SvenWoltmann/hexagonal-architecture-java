@@ -3,6 +3,11 @@ package eu.happycoders.shop.model.product;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * A product ID value object (enabling type-safety and validation).
+ *
+ * @author Sven Woltmann
+ */
 public record ProductId(String value) {
 
   private static final String ALPHABET = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";

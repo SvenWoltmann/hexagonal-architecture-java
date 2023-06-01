@@ -4,6 +4,11 @@ import eu.happycoders.shop.model.cart.Cart;
 import eu.happycoders.shop.model.cart.NotEnoughItemsInStockException;
 import eu.happycoders.shop.model.money.Money;
 
+/**
+ * A product listed in the shop.
+ *
+ * @author Sven Woltmann
+ */
 public class Product {
 
   private final ProductId id;
