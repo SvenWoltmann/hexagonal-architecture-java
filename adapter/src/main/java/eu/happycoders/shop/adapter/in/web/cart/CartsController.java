@@ -21,6 +21,11 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+/**
+ * REST controller for all shopping cart use cases.
+ *
+ * @author Sven Woltmann
+ */
 @Path("/carts")
 @Produces(MediaType.APPLICATION_JSON)
 public class CartsController {

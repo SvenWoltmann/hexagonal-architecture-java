@@ -7,6 +7,12 @@ import eu.happycoders.shop.model.product.Product;
 import eu.happycoders.shop.model.product.ProductId;
 import java.util.List;
 
+/**
+ * Demo products that are automatically stored in the product database (I tried to keep this demo
+ * application as simple as possible, so it doesn't have an endpoint to add a product).
+ *
+ * @author Sven Woltmann
+ */
 public final class DemoProducts {
 
   public static final Product PLASTIC_SHEETING =

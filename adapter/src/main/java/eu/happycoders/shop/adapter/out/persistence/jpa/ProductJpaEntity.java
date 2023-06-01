@@ -8,6 +8,11 @@ import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * JPA entity class for a product.
+ *
+ * @author Sven Woltmann
+ */
 @Entity
 @Table(name = "Product")
 @Getter

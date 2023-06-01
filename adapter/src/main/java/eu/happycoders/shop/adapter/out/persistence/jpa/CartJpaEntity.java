@@ -9,6 +9,11 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * JPA entity class for a shopping cart.
+ *
+ * @author Sven Woltmann
+ */
 @Entity
 @Table(name = "Cart")
 @Getter

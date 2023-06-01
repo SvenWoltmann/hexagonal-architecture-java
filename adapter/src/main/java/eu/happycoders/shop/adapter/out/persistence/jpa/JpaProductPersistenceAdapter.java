@@ -10,6 +10,11 @@ import jakarta.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Persistence adapter: Stores products via JPA in a database.
+ *
+ * @author Sven Woltmann
+ */
 public class JpaProductPersistenceAdapter implements ProductPersistencePort {
 
   private final EntityManagerFactory entityManagerFactory;

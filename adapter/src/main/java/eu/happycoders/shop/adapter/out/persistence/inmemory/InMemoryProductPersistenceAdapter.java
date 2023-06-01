@@ -10,6 +10,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Persistence adapter: Stores products in memory.
+ *
+ * @author Sven Woltmann
+ */
 public class InMemoryProductPersistenceAdapter implements ProductPersistencePort {
 
   private final Map<ProductId, Product> products = new ConcurrentHashMap<>();

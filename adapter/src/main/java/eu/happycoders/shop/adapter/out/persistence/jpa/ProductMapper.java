@@ -6,6 +6,11 @@ import eu.happycoders.shop.model.product.ProductId;
 import java.util.Currency;
 import java.util.List;
 
+/**
+ * Maps a model product to a JPA product and vice versa.
+ *
+ * @author Sven Woltmann
+ */
 final class ProductMapper {
 
   private ProductMapper() {}

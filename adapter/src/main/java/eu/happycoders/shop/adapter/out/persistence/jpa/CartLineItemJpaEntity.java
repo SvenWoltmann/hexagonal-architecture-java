@@ -8,6 +8,11 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * JPA entity class for a shopping cart line item.
+ *
+ * @author Sven Woltmann
+ */
 @Entity
 @Table(name = "CartLineItem")
 @Getter

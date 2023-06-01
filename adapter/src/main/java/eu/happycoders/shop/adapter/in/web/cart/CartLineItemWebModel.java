@@ -4,6 +4,11 @@ import eu.happycoders.shop.model.cart.CartLineItem;
 import eu.happycoders.shop.model.money.Money;
 import eu.happycoders.shop.model.product.Product;
 
+/**
+ * Model class for returning a shopping cart line item via REST API.
+ *
+ * @author Sven Woltmann
+ */
 public record CartLineItemWebModel(
     String productId, String productName, Money price, int quantity) {
 

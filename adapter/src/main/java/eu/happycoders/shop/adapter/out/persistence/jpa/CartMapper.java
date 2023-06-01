@@ -5,6 +5,11 @@ import eu.happycoders.shop.model.cart.CartLineItem;
 import eu.happycoders.shop.model.customer.CustomerId;
 import java.util.Optional;
 
+/**
+ * Maps model carts and line items to JPA carts and line items - and vice versa.
+ *
+ * @author Sven Woltmann
+ */
 final class CartMapper {
 
   private CartMapper() {}

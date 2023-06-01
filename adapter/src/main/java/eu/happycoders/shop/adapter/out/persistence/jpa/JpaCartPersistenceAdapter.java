@@ -7,6 +7,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import java.util.Optional;
 
+/**
+ * Persistence adapter: Stores carts via JPA in a database.
+ *
+ * @author Sven Woltmann
+ */
 public class JpaCartPersistenceAdapter implements CartPersistencePort {
 
   private final EntityManagerFactory entityManagerFactory;

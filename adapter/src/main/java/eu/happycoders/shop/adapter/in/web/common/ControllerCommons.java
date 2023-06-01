@@ -3,6 +3,11 @@ package eu.happycoders.shop.adapter.in.web.common;
 import jakarta.ws.rs.ClientErrorException;
 import jakarta.ws.rs.core.Response;
 
+/**
+ * Common functionality for all REST controllers.
+ *
+ * @author Sven Woltmann
+ */
 public final class ControllerCommons {
 
   private ControllerCommons() {}

@@ -7,6 +7,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Persistence adapter: Stores carts in memory.
+ *
+ * @author Sven Woltmann
+ */
 public class InMemoryCartPersistenceAdapter implements CartPersistencePort {
 
   private final Map<CustomerId, Cart> carts = new ConcurrentHashMap<>();

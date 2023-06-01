@@ -15,6 +15,11 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.List;
 
+/**
+ * REST controller for all product use cases.
+ *
+ * @author Sven Woltmann
+ */
 @Path("/products")
 @Produces(MediaType.APPLICATION_JSON)
 public class ProductsController {

@@ -4,6 +4,11 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import java.util.Map;
 
+/**
+ * Factory for an <code>EntityManagerFactory</code> for connecting to a MySQL database.
+ *
+ * @author Sven Woltmann
+ */
 public final class EntityManagerFactoryFactory {
 
   private EntityManagerFactoryFactory() {}
