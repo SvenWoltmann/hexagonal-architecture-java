@@ -12,6 +12,8 @@ import java.util.Optional;
  */
 public interface ProductPersistencePort {
 
+  void save(Product product);
+
   Optional<Product> findById(ProductId productId);
 
   List<Product> findByNameOrDescription(String query);

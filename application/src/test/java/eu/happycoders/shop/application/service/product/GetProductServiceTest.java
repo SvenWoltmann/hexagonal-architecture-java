@@ -32,8 +32,7 @@ class GetProductServiceTest {
 
     Optional<Product> product = getProductService.getProduct(persistedProduct.id());
 
-    assertThat(product).isNotEmpty();
-    assertThat(product.get()).isEqualTo(persistedProduct);
+    assertThat(product).contains(persistedProduct);
   }
 
   @Test

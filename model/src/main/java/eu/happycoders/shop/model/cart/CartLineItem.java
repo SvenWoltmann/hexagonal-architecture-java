@@ -17,6 +17,11 @@ public class CartLineItem {
     this.product = product;
   }
 
+  CartLineItem(Product product, int quantity) {
+    this.product = product;
+    this.quantity = quantity;
+  }
+
   public Product product() {
     return product;
   }

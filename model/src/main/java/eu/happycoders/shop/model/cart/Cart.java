@@ -29,6 +29,11 @@ public class Cart {
         .increaseQuantityBy(quantity, product.itemsInStock());
   }
 
+  // Use only for reconstituting a Cart entity from the database
+  public void putProductIgnoringNotEnoughItemsInStock(Product product, int quantity) {
+    lineItems.put(product.id(), new CartLineItem(product, quantity));
+  }
+
   public CustomerId id() {
     return id;
   }

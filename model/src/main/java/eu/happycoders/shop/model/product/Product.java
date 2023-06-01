@@ -3,6 +3,7 @@ package eu.happycoders.shop.model.product;
 import eu.happycoders.shop.model.cart.Cart;
 import eu.happycoders.shop.model.cart.NotEnoughItemsInStockException;
 import eu.happycoders.shop.model.money.Money;
+import lombok.EqualsAndHashCode;
 
 /**
  * A product listed in the shop.
@@ -10,6 +11,7 @@ import eu.happycoders.shop.model.money.Money;
  * @author Sven Woltmann
  */
 @SuppressWarnings("PMD.ImmutableField") // name, description, etc... should eventually be modifiable
+@EqualsAndHashCode
 public class Product {
 
   private final ProductId id;
