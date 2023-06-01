@@ -11,4 +11,23 @@
     </parent>
 
     <artifactId>application</artifactId>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>eu.happycoders.shop</groupId>
+            <artifactId>model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- To use the "attached test JAR" from the "model" module -->
+        <dependency>
+            <groupId>eu.happycoders.shop</groupId>
+            <artifactId>model</artifactId>
+            <version>${project.version}</version>
+            <classifier>tests</classifier>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
