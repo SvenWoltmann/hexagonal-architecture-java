@@ -5,6 +5,11 @@ import eu.happycoders.shop.application.port.out.persistence.CartPersistencePort;
 import eu.happycoders.shop.model.customer.CustomerId;
 import java.util.Objects;
 
+/**
+ * Use case implementation: Emptying a shopping cart.
+ *
+ * @author Sven Woltmann
+ */
 public class EmptyCartService implements EmptyCartUseCase {
 
   private final CartPersistencePort cartPersistencePort;

@@ -11,6 +11,11 @@ import eu.happycoders.shop.model.product.Product;
 import eu.happycoders.shop.model.product.ProductId;
 import java.util.Objects;
 
+/**
+ * Use case implementation: Adding a product to a shopping cart.
+ *
+ * @author Sven Woltmann
+ */
 public class AddToCartService implements AddToCartUseCase {
 
   private final CartPersistencePort cartPersistencePort;

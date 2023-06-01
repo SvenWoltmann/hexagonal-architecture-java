@@ -6,6 +6,11 @@ import eu.happycoders.shop.model.product.Product;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Use case implementation: Finding products via a search query.
+ *
+ * @author Sven Woltmann
+ */
 public class FindProductsService implements FindProductsUseCase {
 
   private final ProductPersistencePort productPersistencePort;

@@ -5,6 +5,11 @@ import eu.happycoders.shop.model.product.ProductId;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Outgoing persistence port for products.
+ *
+ * @author Sven Woltmann
+ */
 public interface ProductPersistencePort {
 
   Optional<Product> findById(ProductId productId);

@@ -6,6 +6,11 @@ import eu.happycoders.shop.model.cart.Cart;
 import eu.happycoders.shop.model.customer.CustomerId;
 import java.util.Objects;
 
+/**
+ * Use case implementation: Retrieving a shopping cart.
+ *
+ * @author Sven Woltmann
+ */
 public class GetCartService implements GetCartUseCase {
 
   private final CartPersistencePort cartPersistencePort;

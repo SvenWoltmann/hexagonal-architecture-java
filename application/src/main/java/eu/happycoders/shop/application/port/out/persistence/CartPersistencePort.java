@@ -4,6 +4,11 @@ import eu.happycoders.shop.model.cart.Cart;
 import eu.happycoders.shop.model.customer.CustomerId;
 import java.util.Optional;
 
+/**
+ * Outgoing persistence port for carts.
+ *
+ * @author Sven Woltmann
+ */
 public interface CartPersistencePort {
 
   void save(Cart cart);

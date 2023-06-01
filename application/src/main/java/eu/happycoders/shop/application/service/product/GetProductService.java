@@ -6,6 +6,11 @@ import eu.happycoders.shop.model.product.Product;
 import eu.happycoders.shop.model.product.ProductId;
 import java.util.Optional;
 
+/**
+ * Use case implementation: Retrieving a single product.
+ *
+ * @author Sven Woltmann
+ */
 public class GetProductService implements GetProductUseCase {
 
   private final ProductPersistencePort productPersistencePort;
