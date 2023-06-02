@@ -34,6 +34,8 @@ public class RestEasyUndertowShopApplication extends Application {
   private CartPersistencePort cartPersistencePort;
   private ProductPersistencePort productPersistencePort;
 
+  // We're encouraged to use "automatic discovery of resources", but I want to define them manually.
+  @SuppressWarnings("deprecation")
   @Override
   public Set<Object> getSingletons() {
     initPersistenceAdapters();
@@ -56,6 +58,8 @@ public class RestEasyUndertowShopApplication extends Application {
     productPersistencePort = new InMemoryProductPersistenceAdapter();
   }
 
+  // The EntityManagerFactory doesn't need to get closed before the application is stopped
+  @SuppressWarnings("PMD.CloseResource")
   private void initMySqlAdapter() {
     EntityManagerFactory entityManagerFactory =
         EntityManagerFactoryFactory.createMySqlEntityManagerFactory(
