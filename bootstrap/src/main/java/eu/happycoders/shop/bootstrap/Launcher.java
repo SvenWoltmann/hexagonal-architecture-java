@@ -20,8 +20,17 @@ public class Launcher {
     startServer();
   }
 
+  public void startOnPort(int port) {
+    server = new UndertowJaxrsServer().setPort(port);
+    startServer();
+  }
+
   private void startServer() {
     server.start();
     server.deploy(RestEasyUndertowShopApplication.class);
+  }
+
+  public void stop() {
+    server.stop();
   }
 }

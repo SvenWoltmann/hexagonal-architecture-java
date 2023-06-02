@@ -8,11 +8,11 @@ import eu.happycoders.shop.model.cart.CartLineItem;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
-final class CartsControllerAssertions {
+public final class CartsControllerAssertions {
 
   private CartsControllerAssertions() {}
 
-  static void assertThatResponseIsCart(Response response, Cart cart) {
+  public static void assertThatResponseIsCart(Response response, Cart cart) {
     assertThat(response.statusCode()).isEqualTo(OK.getStatusCode());
 
     JsonPath json = response.jsonPath();

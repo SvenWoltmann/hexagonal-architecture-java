@@ -8,11 +8,11 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import java.util.List;
 
-final class ProductsControllerAssertions {
+public final class ProductsControllerAssertions {
 
   private ProductsControllerAssertions() {}
 
-  static void assertThatResponseIsProduct(Response response, Product product) {
+  public static void assertThatResponseIsProduct(Response response, Product product) {
     assertThat(response.statusCode()).isEqualTo(OK.getStatusCode());
 
     JsonPath json = response.jsonPath();
@@ -20,7 +20,7 @@ final class ProductsControllerAssertions {
     assertThatJsonProductMatchesProduct(json, true, "", product);
   }
 
-  static void assertThatResponseIsProductList(Response response, List<Product> products) {
+  public static void assertThatResponseIsProductList(Response response, List<Product> products) {
     assertThat(response.statusCode()).isEqualTo(OK.getStatusCode());
 
     JsonPath json = response.jsonPath();

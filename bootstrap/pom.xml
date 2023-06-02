@@ -52,5 +52,22 @@
             <artifactId>hibernate-validator</artifactId><!-- Required by Hibernate at runtime -->
             <scope>runtime</scope>
         </dependency>
+
+        <!-- Test scope -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- To use the "attached test JAR" from the "adapter" module -->
+        <dependency>
+            <groupId>eu.happycoders.shop</groupId>
+            <artifactId>adapter</artifactId>
+            <version>${project.version}</version>
+            <classifier>tests</classifier>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
