@@ -33,7 +33,7 @@
         <sonar.java.spotbugs.reportPaths>target/spotbugsXml.xml</sonar.java.spotbugs.reportPaths>
         <sonar.java.pmd.reportPaths>target/pmd.xml</sonar.java.pmd.reportPaths>
         <sonar.java.checkstyle.reportPaths>target/checkstyle-result.xml</sonar.java.checkstyle.reportPaths>
-        <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../bootstrap/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
     <dependencies>
@@ -194,17 +194,8 @@
                                     <goal>prepare-agent</goal>
                                 </goals>
                             </execution>
-                            <execution>
-                                <id>report</id>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                                <configuration>
-                                    <formats>
-                                        <format>XML</format>
-                                    </formats>
-                                </configuration>
-                            </execution>
+                            <!-- Do not create a report for every single module.
+                                 Instead, we'll create an *aggregated* report in the "bootstrap" module. -->
                         </executions>
                     </plugin>
                 </plugins>

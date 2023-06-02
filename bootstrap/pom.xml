@@ -19,6 +19,18 @@
             <artifactId>adapter</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <!-- The "application" and "model" modules are transitively included already;
+             but we need to include them *explicitly* so that the aggregated JaCoCo report will cover them. -->
+        <dependency>
+            <groupId>eu.happycoders.shop</groupId>
+            <artifactId>application</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.happycoders.shop</groupId>
+            <artifactId>model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- External -->
         <dependency>
@@ -75,4 +87,34 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>test-coverage</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <executions>
+                            <!-- We've already bound the "prepare-agent" phase in the parent POM.
+                                 Here, we're generating an aggregated report over all modules.
+                                 Note that this <execution> element is *added* to the one defined in the parent POM. -->
+                            <execution>
+                                <id>report-aggregate</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>report-aggregate</goal>
+                                </goals>
+                                <configuration>
+                                    <formats>XML</formats>
+                                    <includeCurrentProject>true</includeCurrentProject>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
