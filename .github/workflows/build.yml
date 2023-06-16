@@ -21,8 +21,8 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          distribution: 'adopt'
-          java-version: 19
+          distribution: 'temurin'
+          java-version: 20
 
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
