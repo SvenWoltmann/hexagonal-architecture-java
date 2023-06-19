@@ -1,4 +1,4 @@
-package eu.happycoders.shop.adapter.in.web.cart;
+package eu.happycoders.shop.adapter.in.rest.cart;
 
 import static jakarta.ws.rs.core.Response.Status.OK;
 import static org.assertj.core.api.Assertions.assertThat;

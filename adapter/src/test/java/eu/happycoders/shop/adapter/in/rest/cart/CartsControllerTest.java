@@ -1,8 +1,8 @@
-package eu.happycoders.shop.adapter.in.web.cart;
+package eu.happycoders.shop.adapter.in.rest.cart;
 
-import static eu.happycoders.shop.adapter.in.web.HttpTestCommons.TEST_PORT;
-import static eu.happycoders.shop.adapter.in.web.HttpTestCommons.assertThatResponseIsError;
-import static eu.happycoders.shop.adapter.in.web.cart.CartsControllerAssertions.assertThatResponseIsCart;
+import static eu.happycoders.shop.adapter.in.rest.HttpTestCommons.TEST_PORT;
+import static eu.happycoders.shop.adapter.in.rest.HttpTestCommons.assertThatResponseIsError;
+import static eu.happycoders.shop.adapter.in.rest.cart.CartsControllerAssertions.assertThatResponseIsCart;
 import static eu.happycoders.shop.model.money.TestMoneyFactory.euros;
 import static eu.happycoders.shop.model.product.TestProductFactory.createTestProduct;
 import static io.restassured.RestAssured.given;

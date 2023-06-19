@@ -1,6 +1,6 @@
 package eu.happycoders.shop.bootstrap.e2e;
 
-import static eu.happycoders.shop.adapter.in.web.HttpTestCommons.TEST_PORT;
+import static eu.happycoders.shop.adapter.in.rest.HttpTestCommons.TEST_PORT;
 
 import eu.happycoders.shop.bootstrap.Launcher;
 import org.junit.jupiter.api.AfterAll;

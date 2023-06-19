@@ -1,9 +1,9 @@
-package eu.happycoders.shop.adapter.in.web.product;
+package eu.happycoders.shop.adapter.in.rest.product;
 
-import static eu.happycoders.shop.adapter.in.web.HttpTestCommons.TEST_PORT;
-import static eu.happycoders.shop.adapter.in.web.HttpTestCommons.assertThatResponseIsError;
-import static eu.happycoders.shop.adapter.in.web.product.ProductsControllerAssertions.assertThatResponseIsProduct;
-import static eu.happycoders.shop.adapter.in.web.product.ProductsControllerAssertions.assertThatResponseIsProductList;
+import static eu.happycoders.shop.adapter.in.rest.HttpTestCommons.TEST_PORT;
+import static eu.happycoders.shop.adapter.in.rest.HttpTestCommons.assertThatResponseIsError;
+import static eu.happycoders.shop.adapter.in.rest.product.ProductsControllerAssertions.assertThatResponseIsProduct;
+import static eu.happycoders.shop.adapter.in.rest.product.ProductsControllerAssertions.assertThatResponseIsProductList;
 import static eu.happycoders.shop.model.money.TestMoneyFactory.euros;
 import static eu.happycoders.shop.model.product.TestProductFactory.createTestProduct;
 import static io.restassured.RestAssured.given;

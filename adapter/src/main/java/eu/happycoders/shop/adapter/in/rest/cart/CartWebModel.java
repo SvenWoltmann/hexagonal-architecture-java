@@ -1,4 +1,4 @@
-package eu.happycoders.shop.adapter.in.web.cart;
+package eu.happycoders.shop.adapter.in.rest.cart;
 
 import eu.happycoders.shop.model.cart.Cart;
 import eu.happycoders.shop.model.money.Money;

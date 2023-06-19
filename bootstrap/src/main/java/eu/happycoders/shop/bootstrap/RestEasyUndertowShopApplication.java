@@ -1,7 +1,7 @@
 package eu.happycoders.shop.bootstrap;
 
-import eu.happycoders.shop.adapter.in.web.cart.CartsController;
-import eu.happycoders.shop.adapter.in.web.product.ProductsController;
+import eu.happycoders.shop.adapter.in.rest.cart.CartsController;
+import eu.happycoders.shop.adapter.in.rest.product.ProductsController;
 import eu.happycoders.shop.adapter.out.persistence.inmemory.InMemoryCartPersistenceAdapter;
 import eu.happycoders.shop.adapter.out.persistence.inmemory.InMemoryProductPersistenceAdapter;
 import eu.happycoders.shop.adapter.out.persistence.jpa.EntityManagerFactoryFactory;

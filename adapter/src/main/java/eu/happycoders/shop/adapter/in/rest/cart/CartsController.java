@@ -1,7 +1,7 @@
-package eu.happycoders.shop.adapter.in.web.cart;
+package eu.happycoders.shop.adapter.in.rest.cart;
 
-import static eu.happycoders.shop.adapter.in.web.common.ControllerCommons.clientErrorException;
-import static eu.happycoders.shop.adapter.in.web.product.ProductsController.parseProductId;
+import static eu.happycoders.shop.adapter.in.rest.common.ControllerCommons.clientErrorException;
+import static eu.happycoders.shop.adapter.in.rest.product.ProductsController.parseProductId;
 
 import eu.happycoders.shop.application.port.in.cart.AddToCartUseCase;
 import eu.happycoders.shop.application.port.in.cart.EmptyCartUseCase;

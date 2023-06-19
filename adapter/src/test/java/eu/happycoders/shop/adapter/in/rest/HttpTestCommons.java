@@ -1,4 +1,4 @@
-package eu.happycoders.shop.adapter.in.web;
+package eu.happycoders.shop.adapter.in.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

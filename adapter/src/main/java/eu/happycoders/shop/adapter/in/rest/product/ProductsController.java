@@ -1,6 +1,6 @@
-package eu.happycoders.shop.adapter.in.web.product;
+package eu.happycoders.shop.adapter.in.rest.product;
 
-import static eu.happycoders.shop.adapter.in.web.common.ControllerCommons.clientErrorException;
+import static eu.happycoders.shop.adapter.in.rest.common.ControllerCommons.clientErrorException;
 
 import eu.happycoders.shop.application.port.in.product.FindProductsUseCase;
 import eu.happycoders.shop.application.port.in.product.GetProductUseCase;

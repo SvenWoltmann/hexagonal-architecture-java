@@ -1,7 +1,7 @@
 package eu.happycoders.shop.bootstrap.e2e;
 
-import static eu.happycoders.shop.adapter.in.web.HttpTestCommons.TEST_PORT;
-import static eu.happycoders.shop.adapter.in.web.product.ProductsControllerAssertions.assertThatResponseIsProduct;
+import static eu.happycoders.shop.adapter.in.rest.HttpTestCommons.TEST_PORT;
+import static eu.happycoders.shop.adapter.in.rest.product.ProductsControllerAssertions.assertThatResponseIsProduct;
 import static eu.happycoders.shop.adapter.out.persistence.DemoProducts.PLASTIC_SHEETING;
 import static io.restassured.RestAssured.given;
 

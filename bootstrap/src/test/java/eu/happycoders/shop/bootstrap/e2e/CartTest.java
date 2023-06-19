@@ -1,7 +1,7 @@
 package eu.happycoders.shop.bootstrap.e2e;
 
-import static eu.happycoders.shop.adapter.in.web.HttpTestCommons.TEST_PORT;
-import static eu.happycoders.shop.adapter.in.web.cart.CartsControllerAssertions.assertThatResponseIsCart;
+import static eu.happycoders.shop.adapter.in.rest.HttpTestCommons.TEST_PORT;
+import static eu.happycoders.shop.adapter.in.rest.cart.CartsControllerAssertions.assertThatResponseIsCart;
 import static eu.happycoders.shop.adapter.out.persistence.DemoProducts.LED_LIGHTS;
 import static eu.happycoders.shop.adapter.out.persistence.DemoProducts.MONITOR_DESK_MOUNT;
 import static io.restassured.RestAssured.given;
