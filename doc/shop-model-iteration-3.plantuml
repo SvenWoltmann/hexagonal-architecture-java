@@ -1,0 +1,27 @@
+@startuml
+class Cart {
+  -id : CustomerId
+}
+
+Cart *-  CartLineItem
+
+class CartLineItem {
+  -quantity : int
+}
+
+CartLineItem -> Product
+
+class Product {
+  -id : ProductId
+  -name : String
+  -description : String
+}
+
+Product --> Money : price
+
+class Money {
+  -currency : Currency
+  -amount : BigDecimal
+}
+
+@enduml

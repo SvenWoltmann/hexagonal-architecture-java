@@ -1,0 +1,17 @@
+@startuml
+class Cart {
+  -id : CustomerId
+}
+
+Cart *-  CartLineItem
+
+class CartLineItem {
+  -quantity : int
+}
+
+CartLineItem -> Product
+
+class Product {
+  -id : ProductId
+}
+@enduml
