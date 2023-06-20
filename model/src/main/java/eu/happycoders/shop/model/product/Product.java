@@ -1,7 +1,5 @@
 package eu.happycoders.shop.model.product;
 
-import eu.happycoders.shop.model.cart.Cart;
-import eu.happycoders.shop.model.cart.NotEnoughItemsInStockException;
 import eu.happycoders.shop.model.money.Money;
 import lombok.EqualsAndHashCode;
 
@@ -30,10 +28,6 @@ public class Product {
 
   public ProductId id() {
     return id;
-  }
-
-  public void addToCart(Cart cart, int quantity) throws NotEnoughItemsInStockException {
-    cart.addProduct(this, quantity);
   }
 
   public String name() {

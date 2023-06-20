@@ -42,7 +42,7 @@ public class AddToCartService implements AddToCartUseCase {
     Cart cart =
         cartPersistencePort.findByCustomerId(customerId).orElseGet(() -> new Cart(customerId));
 
-    product.addToCart(cart, quantity);
+    cart.addProduct(product, quantity);
 
     cartPersistencePort.save(cart);
 
