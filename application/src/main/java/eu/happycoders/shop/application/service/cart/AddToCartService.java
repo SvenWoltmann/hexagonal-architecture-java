@@ -2,8 +2,8 @@ package eu.happycoders.shop.application.service.cart;
 
 import eu.happycoders.shop.application.port.in.cart.AddToCartUseCase;
 import eu.happycoders.shop.application.port.in.cart.ProductNotFoundException;
-import eu.happycoders.shop.application.port.out.persistence.CartPersistencePort;
-import eu.happycoders.shop.application.port.out.persistence.ProductPersistencePort;
+import eu.happycoders.shop.application.port.out.persistence.CartRepository;
+import eu.happycoders.shop.application.port.out.persistence.ProductRepository;
 import eu.happycoders.shop.model.cart.Cart;
 import eu.happycoders.shop.model.cart.NotEnoughItemsInStockException;
 import eu.happycoders.shop.model.customer.CustomerId;
@@ -18,13 +18,12 @@ import java.util.Objects;
  */
 public class AddToCartService implements AddToCartUseCase {
 
-  private final CartPersistencePort cartPersistencePort;
-  private final ProductPersistencePort productPersistencePort;
+  private final CartRepository cartRepository;
+  private final ProductRepository productRepository;
 
-  public AddToCartService(
-      CartPersistencePort cartPersistencePort, ProductPersistencePort productPersistencePort) {
-    this.cartPersistencePort = cartPersistencePort;
-    this.productPersistencePort = productPersistencePort;
+  public AddToCartService(CartRepository cartRepository, ProductRepository productRepository) {
+    this.cartRepository = cartRepository;
+    this.productRepository = productRepository;
   }
 
   @Override
@@ -37,14 +36,13 @@ public class AddToCartService implements AddToCartUseCase {
     }
 
     Product product =
-        productPersistencePort.findById(productId).orElseThrow(ProductNotFoundException::new);
+        productRepository.findById(productId).orElseThrow(ProductNotFoundException::new);
 
-    Cart cart =
-        cartPersistencePort.findByCustomerId(customerId).orElseGet(() -> new Cart(customerId));
+    Cart cart = cartRepository.findByCustomerId(customerId).orElseGet(() -> new Cart(customerId));
 
     cart.addProduct(product, quantity);
 
-    cartPersistencePort.save(cart);
+    cartRepository.save(cart);
 
     return cart;
   }

@@ -1,0 +1,38 @@
+@startuml
+package "eu:happycoders:shop:application:port:in" {
+    package "cart" {
+        interface EmptyCartUseCase<<port>> {}
+        interface GetCartUseCase<<port>> {}
+        interface AddToCartUseCase<<port>> {}
+    }
+    package "product" {
+        interface GetProductsUseCase<<port>> {}
+        interface FindProductsUseCase<<port>> {}
+    }
+}
+
+package "eu:happycoders:shop:application:service" {
+    package "cart" {
+        EmptyCartUseCase <|.. EmptyCartService
+        GetCartUseCase <|.. GetCartService
+        AddToCartUseCase <|.. AddToCartService
+    }
+    package "product" {
+        GetProductsUseCase <|.. GetProductsService
+        FindProductsUseCase <|.. FindProductsService
+    }
+}
+
+package "eu:happycoders:shop:application:port:out:persistence" {
+        class CartRepository<<port>>
+        class ProductRepository<<port>>
+
+        AddToCartService ..> CartRepository
+        AddToCartService ..> ProductRepository
+        EmptyCartService ..> CartRepository
+        GetCartService ..> CartRepository
+
+        FindProductsService ..> ProductRepository
+        GetProductsService ..> ProductRepository
+}
+@enduml

@@ -1,6 +1,6 @@
 package eu.happycoders.shop.adapter.out.persistence.inmemory;
 
-import eu.happycoders.shop.application.port.out.persistence.CartPersistencePort;
+import eu.happycoders.shop.application.port.out.persistence.CartRepository;
 import eu.happycoders.shop.model.cart.Cart;
 import eu.happycoders.shop.model.customer.CustomerId;
 import java.util.Map;
@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Sven Woltmann
  */
-public class InMemoryCartPersistenceAdapter implements CartPersistencePort {
+public class InMemoryCartRepository implements CartRepository {
 
   private final Map<CustomerId, Cart> carts = new ConcurrentHashMap<>();
 

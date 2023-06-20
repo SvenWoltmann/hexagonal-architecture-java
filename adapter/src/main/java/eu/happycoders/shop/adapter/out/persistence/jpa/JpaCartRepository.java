@@ -1,6 +1,6 @@
 package eu.happycoders.shop.adapter.out.persistence.jpa;
 
-import eu.happycoders.shop.application.port.out.persistence.CartPersistencePort;
+import eu.happycoders.shop.application.port.out.persistence.CartRepository;
 import eu.happycoders.shop.model.cart.Cart;
 import eu.happycoders.shop.model.customer.CustomerId;
 import jakarta.persistence.EntityManager;
@@ -12,11 +12,11 @@ import java.util.Optional;
  *
  * @author Sven Woltmann
  */
-public class JpaCartPersistenceAdapter implements CartPersistencePort {
+public class JpaCartRepository implements CartRepository {
 
   private final EntityManagerFactory entityManagerFactory;
 
-  public JpaCartPersistenceAdapter(EntityManagerFactory entityManagerFactory) {
+  public JpaCartRepository(EntityManagerFactory entityManagerFactory) {
     this.entityManagerFactory = entityManagerFactory;
   }
 

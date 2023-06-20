@@ -4,8 +4,8 @@ import static eu.happycoders.shop.model.money.TestMoneyFactory.euros;
 import static eu.happycoders.shop.model.product.TestProductFactory.createTestProduct;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import eu.happycoders.shop.application.port.out.persistence.CartPersistencePort;
-import eu.happycoders.shop.application.port.out.persistence.ProductPersistencePort;
+import eu.happycoders.shop.application.port.out.persistence.CartRepository;
+import eu.happycoders.shop.application.port.out.persistence.ProductRepository;
 import eu.happycoders.shop.model.cart.Cart;
 import eu.happycoders.shop.model.cart.CartLineItem;
 import eu.happycoders.shop.model.cart.NotEnoughItemsInStockException;
@@ -16,23 +16,23 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public abstract class AbstractCartPersistenceAdapterTest<
-    T extends CartPersistencePort, U extends ProductPersistencePort> {
+public abstract class AbstractCartRepositoryTest<
+    T extends CartRepository, U extends ProductRepository> {
 
   private static final Product TEST_PRODUCT_1 = createTestProduct(euros(19, 99));
   private static final Product TEST_PRODUCT_2 = createTestProduct(euros(1, 49));
 
   private static final AtomicInteger CUSTOMER_ID_SEQUENCE_GENERATOR = new AtomicInteger();
 
-  protected T persistenceAdapter;
+  protected T cartRepository;
 
   @BeforeEach
   void resetPersistenceAdapter() {
-    persistenceAdapter = createPersistenceAdapter();
+    cartRepository = createCartRepository();
     persistTestProducts();
   }
 
-  protected abstract T createPersistenceAdapter();
+  protected abstract T createCartRepository();
 
   private void persistTestProducts() {
     U productPersistenceAdapter = createProductPersistenceAdapter();
@@ -46,7 +46,7 @@ public abstract class AbstractCartPersistenceAdapterTest<
   void givenACustomerIdForWhichNoCartIsPersisted_findByCustomerId_returnsAnEmptyOptional() {
     CustomerId customerId = createUniqueCustomerId();
 
-    Optional<Cart> cart = persistenceAdapter.findByCustomerId(customerId);
+    Optional<Cart> cart = cartRepository.findByCustomerId(customerId);
 
     assertThat(cart).isEmpty();
   }
@@ -58,9 +58,9 @@ public abstract class AbstractCartPersistenceAdapterTest<
 
     Cart persistedCart = new Cart(customerId);
     persistedCart.addProduct(TEST_PRODUCT_1, 1);
-    persistenceAdapter.save(persistedCart);
+    cartRepository.save(persistedCart);
 
-    Optional<Cart> cart = persistenceAdapter.findByCustomerId(customerId);
+    Optional<Cart> cart = cartRepository.findByCustomerId(customerId);
 
     assertThat(cart).isNotEmpty();
     assertThat(cart.get().id()).isEqualTo(customerId);
@@ -77,13 +77,13 @@ public abstract class AbstractCartPersistenceAdapterTest<
 
     Cart existingCart = new Cart(customerId);
     existingCart.addProduct(TEST_PRODUCT_1, 1);
-    persistenceAdapter.save(existingCart);
+    cartRepository.save(existingCart);
 
     Cart newCart = new Cart(customerId);
     newCart.addProduct(TEST_PRODUCT_2, 2);
-    persistenceAdapter.save(newCart);
+    cartRepository.save(newCart);
 
-    Optional<Cart> cart = persistenceAdapter.findByCustomerId(customerId);
+    Optional<Cart> cart = cartRepository.findByCustomerId(customerId);
     assertThat(cart).isNotEmpty();
     assertThat(cart.get().id()).isEqualTo(customerId);
     assertThat(cart.get().lineItems()).hasSize(1);
@@ -98,13 +98,13 @@ public abstract class AbstractCartPersistenceAdapterTest<
 
     Cart existingCart = new Cart(customerId);
     existingCart.addProduct(TEST_PRODUCT_1, 1);
-    persistenceAdapter.save(existingCart);
+    cartRepository.save(existingCart);
 
-    existingCart = persistenceAdapter.findByCustomerId(customerId).orElseThrow();
+    existingCart = cartRepository.findByCustomerId(customerId).orElseThrow();
     existingCart.addProduct(TEST_PRODUCT_2, 2);
-    persistenceAdapter.save(existingCart);
+    cartRepository.save(existingCart);
 
-    Optional<Cart> cart = persistenceAdapter.findByCustomerId(customerId);
+    Optional<Cart> cart = cartRepository.findByCustomerId(customerId);
     assertThat(cart).isNotEmpty();
     assertThat(cart.get().id()).isEqualTo(customerId);
     assertThat(cart.get().lineItems())
@@ -117,23 +117,23 @@ public abstract class AbstractCartPersistenceAdapterTest<
     CustomerId customerId = createUniqueCustomerId();
 
     Cart existingCart = new Cart(customerId);
-    persistenceAdapter.save(existingCart);
+    cartRepository.save(existingCart);
 
-    assertThat(persistenceAdapter.findByCustomerId(customerId)).isNotEmpty();
+    assertThat(cartRepository.findByCustomerId(customerId)).isNotEmpty();
 
-    persistenceAdapter.deleteById(customerId);
+    cartRepository.deleteById(customerId);
 
-    assertThat(persistenceAdapter.findByCustomerId(customerId)).isEmpty();
+    assertThat(cartRepository.findByCustomerId(customerId)).isEmpty();
   }
 
   @Test
   void givenNotExistingCart_deleteById_doesNothing() {
     CustomerId customerId = createUniqueCustomerId();
-    assertThat(persistenceAdapter.findByCustomerId(customerId)).isEmpty();
+    assertThat(cartRepository.findByCustomerId(customerId)).isEmpty();
 
-    persistenceAdapter.deleteById(customerId);
+    cartRepository.deleteById(customerId);
 
-    assertThat(persistenceAdapter.findByCustomerId(customerId)).isEmpty();
+    assertThat(cartRepository.findByCustomerId(customerId)).isEmpty();
   }
 
   private static CustomerId createUniqueCustomerId() {

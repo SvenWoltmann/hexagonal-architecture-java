@@ -9,7 +9,7 @@ import java.util.Optional;
  *
  * @author Sven Woltmann
  */
-public interface CartPersistencePort {
+public interface CartRepository {
 
   void save(Cart cart);
 

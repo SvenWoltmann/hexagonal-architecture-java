@@ -1,7 +1,7 @@
 package eu.happycoders.shop.application.service.cart;
 
 import eu.happycoders.shop.application.port.in.cart.EmptyCartUseCase;
-import eu.happycoders.shop.application.port.out.persistence.CartPersistencePort;
+import eu.happycoders.shop.application.port.out.persistence.CartRepository;
 import eu.happycoders.shop.model.customer.CustomerId;
 import java.util.Objects;
 
@@ -12,16 +12,16 @@ import java.util.Objects;
  */
 public class EmptyCartService implements EmptyCartUseCase {
 
-  private final CartPersistencePort cartPersistencePort;
+  private final CartRepository cartRepository;
 
-  public EmptyCartService(CartPersistencePort cartPersistencePort) {
-    this.cartPersistencePort = cartPersistencePort;
+  public EmptyCartService(CartRepository cartRepository) {
+    this.cartRepository = cartRepository;
   }
 
   @Override
   public void emptyCart(CustomerId customerId) {
     Objects.requireNonNull(customerId, "'customerId' must not be null");
 
-    cartPersistencePort.deleteById(customerId);
+    cartRepository.deleteById(customerId);
   }
 }

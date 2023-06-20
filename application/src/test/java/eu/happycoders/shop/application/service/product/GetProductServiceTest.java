@@ -6,7 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import eu.happycoders.shop.application.port.out.persistence.ProductPersistencePort;
+import eu.happycoders.shop.application.port.out.persistence.ProductRepository;
 import eu.happycoders.shop.model.product.Product;
 import eu.happycoders.shop.model.product.ProductId;
 import java.util.Optional;
@@ -16,18 +16,18 @@ import org.mockito.Mockito;
 
 class GetProductServiceTest {
 
-  private final ProductPersistencePort productPersistencePort = mock(ProductPersistencePort.class);
-  private final GetProductService getProductService = new GetProductService(productPersistencePort);
+  private final ProductRepository productRepository = mock(ProductRepository.class);
+  private final GetProductService getProductService = new GetProductService(productRepository);
 
   @BeforeEach
   void resetMocks() {
-    Mockito.reset(productPersistencePort);
+    Mockito.reset(productRepository);
   }
 
   @Test
   void givenAPersistedProduct_getProduct_returnsThatProduct() {
     Product persistedProduct = createTestProduct(euros(19, 99));
-    when(productPersistencePort.findById(persistedProduct.id()))
+    when(productRepository.findById(persistedProduct.id()))
         .thenReturn(Optional.of(persistedProduct));
 
     Optional<Product> product = getProductService.getProduct(persistedProduct.id());
@@ -38,7 +38,7 @@ class GetProductServiceTest {
   @Test
   void givenAProductDoesNotExist_getProduct_returnsAnEmptyOptional() {
     ProductId productId = ProductId.randomProductId();
-    when(productPersistencePort.findById(productId)).thenReturn(Optional.empty());
+    when(productRepository.findById(productId)).thenReturn(Optional.empty());
 
     Optional<Product> product = getProductService.getProduct(productId);
 

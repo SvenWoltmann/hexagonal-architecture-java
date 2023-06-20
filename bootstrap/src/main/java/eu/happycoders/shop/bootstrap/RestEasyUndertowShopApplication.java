@@ -2,18 +2,18 @@ package eu.happycoders.shop.bootstrap;
 
 import eu.happycoders.shop.adapter.in.rest.cart.CartsController;
 import eu.happycoders.shop.adapter.in.rest.product.ProductsController;
-import eu.happycoders.shop.adapter.out.persistence.inmemory.InMemoryCartPersistenceAdapter;
-import eu.happycoders.shop.adapter.out.persistence.inmemory.InMemoryProductPersistenceAdapter;
+import eu.happycoders.shop.adapter.out.persistence.inmemory.InMemoryCartRepository;
+import eu.happycoders.shop.adapter.out.persistence.inmemory.InMemoryProductRepository;
 import eu.happycoders.shop.adapter.out.persistence.jpa.EntityManagerFactoryFactory;
-import eu.happycoders.shop.adapter.out.persistence.jpa.JpaCartPersistenceAdapter;
-import eu.happycoders.shop.adapter.out.persistence.jpa.JpaProductPersistenceAdapter;
+import eu.happycoders.shop.adapter.out.persistence.jpa.JpaCartRepository;
+import eu.happycoders.shop.adapter.out.persistence.jpa.JpaProductRepository;
 import eu.happycoders.shop.application.port.in.cart.AddToCartUseCase;
 import eu.happycoders.shop.application.port.in.cart.EmptyCartUseCase;
 import eu.happycoders.shop.application.port.in.cart.GetCartUseCase;
 import eu.happycoders.shop.application.port.in.product.FindProductsUseCase;
 import eu.happycoders.shop.application.port.in.product.GetProductUseCase;
-import eu.happycoders.shop.application.port.out.persistence.CartPersistencePort;
-import eu.happycoders.shop.application.port.out.persistence.ProductPersistencePort;
+import eu.happycoders.shop.application.port.out.persistence.CartRepository;
+import eu.happycoders.shop.application.port.out.persistence.ProductRepository;
 import eu.happycoders.shop.application.service.cart.AddToCartService;
 import eu.happycoders.shop.application.service.cart.EmptyCartService;
 import eu.happycoders.shop.application.service.cart.GetCartService;
@@ -31,8 +31,8 @@ import java.util.Set;
  */
 public class RestEasyUndertowShopApplication extends Application {
 
-  private CartPersistencePort cartPersistencePort;
-  private ProductPersistencePort productPersistencePort;
+  private CartRepository cartRepository;
+  private ProductRepository productRepository;
 
   // We're encouraged to use "automatic discovery of resources", but I want to define them manually.
   @SuppressWarnings("deprecation")
@@ -54,8 +54,8 @@ public class RestEasyUndertowShopApplication extends Application {
   }
 
   private void initInMemoryAdapters() {
-    cartPersistencePort = new InMemoryCartPersistenceAdapter();
-    productPersistencePort = new InMemoryProductPersistenceAdapter();
+    cartRepository = new InMemoryCartRepository();
+    productRepository = new InMemoryProductRepository();
   }
 
   // The EntityManagerFactory doesn't need to get closed before the application is stopped
@@ -65,21 +65,20 @@ public class RestEasyUndertowShopApplication extends Application {
         EntityManagerFactoryFactory.createMySqlEntityManagerFactory(
             "jdbc:mysql://localhost:3306/shop", "root", "test");
 
-    cartPersistencePort = new JpaCartPersistenceAdapter(entityManagerFactory);
-    productPersistencePort = new JpaProductPersistenceAdapter(entityManagerFactory);
+    cartRepository = new JpaCartRepository(entityManagerFactory);
+    productRepository = new JpaProductRepository(entityManagerFactory);
   }
 
   private CartsController cartController() {
-    AddToCartUseCase addToCartUseCase =
-        new AddToCartService(cartPersistencePort, productPersistencePort);
-    GetCartUseCase getCartUseCase = new GetCartService(cartPersistencePort);
-    EmptyCartUseCase emptyCartUseCase = new EmptyCartService(cartPersistencePort);
+    AddToCartUseCase addToCartUseCase = new AddToCartService(cartRepository, productRepository);
+    GetCartUseCase getCartUseCase = new GetCartService(cartRepository);
+    EmptyCartUseCase emptyCartUseCase = new EmptyCartService(cartRepository);
     return new CartsController(addToCartUseCase, getCartUseCase, emptyCartUseCase);
   }
 
   private ProductsController productsController() {
-    GetProductUseCase getProductUseCase = new GetProductService(productPersistencePort);
-    FindProductsUseCase findProductsUseCase = new FindProductsService(productPersistencePort);
+    GetProductUseCase getProductUseCase = new GetProductService(productRepository);
+    FindProductsUseCase findProductsUseCase = new FindProductsService(productRepository);
     return new ProductsController(getProductUseCase, findProductsUseCase);
   }
 }

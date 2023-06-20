@@ -1,7 +1,7 @@
 package eu.happycoders.shop.adapter.out.persistence.inmemory;
 
 import eu.happycoders.shop.adapter.out.persistence.DemoProducts;
-import eu.happycoders.shop.application.port.out.persistence.ProductPersistencePort;
+import eu.happycoders.shop.application.port.out.persistence.ProductRepository;
 import eu.happycoders.shop.model.product.Product;
 import eu.happycoders.shop.model.product.ProductId;
 import java.util.List;
@@ -15,11 +15,11 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Sven Woltmann
  */
-public class InMemoryProductPersistenceAdapter implements ProductPersistencePort {
+public class InMemoryProductRepository implements ProductRepository {
 
   private final Map<ProductId, Product> products = new ConcurrentHashMap<>();
 
-  public InMemoryProductPersistenceAdapter() {
+  public InMemoryProductRepository() {
     createDemoProducts();
   }
 

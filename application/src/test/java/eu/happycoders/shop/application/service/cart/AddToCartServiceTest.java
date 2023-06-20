@@ -12,8 +12,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import eu.happycoders.shop.application.port.in.cart.ProductNotFoundException;
-import eu.happycoders.shop.application.port.out.persistence.CartPersistencePort;
-import eu.happycoders.shop.application.port.out.persistence.ProductPersistencePort;
+import eu.happycoders.shop.application.port.out.persistence.CartRepository;
+import eu.happycoders.shop.application.port.out.persistence.ProductRepository;
 import eu.happycoders.shop.model.cart.Cart;
 import eu.happycoders.shop.model.cart.NotEnoughItemsInStockException;
 import eu.happycoders.shop.model.customer.CustomerId;
@@ -31,20 +31,18 @@ class AddToCartServiceTest {
   private static final Product TEST_PRODUCT_1 = createTestProduct(euros(19, 99));
   private static final Product TEST_PRODUCT_2 = createTestProduct(euros(25, 99));
 
-  private final CartPersistencePort cartPersistencePort = mock(CartPersistencePort.class);
-  private final ProductPersistencePort productPersistencePort = mock(ProductPersistencePort.class);
+  private final CartRepository cartRepository = mock(CartRepository.class);
+  private final ProductRepository productRepository = mock(ProductRepository.class);
   private final AddToCartService addToCartService =
-      new AddToCartService(cartPersistencePort, productPersistencePort);
+      new AddToCartService(cartRepository, productRepository);
 
   @BeforeEach
   void resetMocks() {
-    Mockito.reset(cartPersistencePort, productPersistencePort);
+    Mockito.reset(cartRepository, productRepository);
 
-    when(productPersistencePort.findById(TEST_PRODUCT_1.id()))
-        .thenReturn(Optional.of(TEST_PRODUCT_1));
+    when(productRepository.findById(TEST_PRODUCT_1.id())).thenReturn(Optional.of(TEST_PRODUCT_1));
 
-    when(productPersistencePort.findById(TEST_PRODUCT_2.id()))
-        .thenReturn(Optional.of(TEST_PRODUCT_2));
+    when(productRepository.findById(TEST_PRODUCT_2.id())).thenReturn(Optional.of(TEST_PRODUCT_2));
   }
 
   @Test
@@ -53,12 +51,11 @@ class AddToCartServiceTest {
     Cart persistedCart = new Cart(TEST_CUSTOMER_ID);
     persistedCart.addProduct(TEST_PRODUCT_1, 1);
 
-    when(cartPersistencePort.findByCustomerId(TEST_CUSTOMER_ID))
-        .thenReturn(Optional.of(persistedCart));
+    when(cartRepository.findByCustomerId(TEST_CUSTOMER_ID)).thenReturn(Optional.of(persistedCart));
 
     Cart cart = addToCartService.addToCart(TEST_CUSTOMER_ID, TEST_PRODUCT_2.id(), 3);
 
-    verify(cartPersistencePort).save(cart);
+    verify(cartRepository).save(cart);
 
     assertThat(cart.lineItems()).hasSize(2);
     assertThat(cart.lineItems().get(0).product()).isEqualTo(TEST_PRODUCT_1);
@@ -72,7 +69,7 @@ class AddToCartServiceTest {
       throws NotEnoughItemsInStockException, ProductNotFoundException {
     Cart cart = addToCartService.addToCart(TEST_CUSTOMER_ID, TEST_PRODUCT_1.id(), 2);
 
-    verify(cartPersistencePort).save(cart);
+    verify(cartRepository).save(cart);
 
     assertThat(cart.lineItems()).hasSize(1);
     assertThat(cart.lineItems().get(0).product()).isEqualTo(TEST_PRODUCT_1);
@@ -86,7 +83,7 @@ class AddToCartServiceTest {
     ThrowingCallable invocation = () -> addToCartService.addToCart(TEST_CUSTOMER_ID, productId, 1);
 
     assertThatExceptionOfType(ProductNotFoundException.class).isThrownBy(invocation);
-    verify(cartPersistencePort, never()).save(any());
+    verify(cartRepository, never()).save(any());
   }
 
   @Test
@@ -97,6 +94,6 @@ class AddToCartServiceTest {
         () -> addToCartService.addToCart(TEST_CUSTOMER_ID, TEST_PRODUCT_1.id(), quantity);
 
     assertThatIllegalArgumentException().isThrownBy(invocation);
-    verify(cartPersistencePort, never()).save(any());
+    verify(cartRepository, never()).save(any());
   }
 }

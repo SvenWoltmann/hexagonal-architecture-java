@@ -1,15 +1,14 @@
 package eu.happycoders.shop.adapter.out.persistence.jpa;
 
-import eu.happycoders.shop.adapter.out.persistence.AbstractProductPersistenceAdapterTest;
+import eu.happycoders.shop.adapter.out.persistence.AbstractCartRepositoryTest;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
-class JpaProductPersistenceAdapterTest
-    extends AbstractProductPersistenceAdapterTest<JpaProductPersistenceAdapter> {
+class JpaCartRepositoryTest
+    extends AbstractCartRepositoryTest<JpaCartRepository, JpaProductRepository> {
 
   private static MySQLContainer<?> mysql;
   private static EntityManagerFactory entityManagerFactory;
@@ -24,9 +23,14 @@ class JpaProductPersistenceAdapterTest
             mysql.getJdbcUrl(), "root", "test");
   }
 
-  @BeforeEach
-  void setUpPersistenceAdapter() {
-    productPersistenceAdapter = new JpaProductPersistenceAdapter(entityManagerFactory);
+  @Override
+  protected JpaCartRepository createCartRepository() {
+    return new JpaCartRepository(entityManagerFactory);
+  }
+
+  @Override
+  protected JpaProductRepository createProductPersistenceAdapter() {
+    return new JpaProductRepository(entityManagerFactory);
   }
 
   @AfterAll

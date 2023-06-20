@@ -1,7 +1,7 @@
 package eu.happycoders.shop.application.service.product;
 
 import eu.happycoders.shop.application.port.in.product.FindProductsUseCase;
-import eu.happycoders.shop.application.port.out.persistence.ProductPersistencePort;
+import eu.happycoders.shop.application.port.out.persistence.ProductRepository;
 import eu.happycoders.shop.model.product.Product;
 import java.util.List;
 import java.util.Objects;
@@ -13,10 +13,10 @@ import java.util.Objects;
  */
 public class FindProductsService implements FindProductsUseCase {
 
-  private final ProductPersistencePort productPersistencePort;
+  private final ProductRepository productRepository;
 
-  public FindProductsService(ProductPersistencePort productPersistencePort) {
-    this.productPersistencePort = productPersistencePort;
+  public FindProductsService(ProductRepository productRepository) {
+    this.productRepository = productRepository;
   }
 
   @Override
@@ -26,6 +26,6 @@ public class FindProductsService implements FindProductsUseCase {
       throw new IllegalArgumentException("'query' must be at least two characters long");
     }
 
-    return productPersistencePort.findByNameOrDescription(query);
+    return productRepository.findByNameOrDescription(query);
   }
 }

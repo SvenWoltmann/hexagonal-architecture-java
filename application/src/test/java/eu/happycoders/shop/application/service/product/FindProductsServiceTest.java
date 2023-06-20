@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import eu.happycoders.shop.application.port.out.persistence.ProductPersistencePort;
+import eu.happycoders.shop.application.port.out.persistence.ProductRepository;
 import eu.happycoders.shop.model.product.Product;
 import java.util.List;
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
@@ -20,22 +20,22 @@ class FindProductsServiceTest {
   private static final Product TEST_PRODUCT_1 = createTestProduct(euros(19, 99));
   private static final Product TEST_PRODUCT_2 = createTestProduct(euros(25, 99));
 
-  private final ProductPersistencePort productPersistencePort = mock(ProductPersistencePort.class);
+  private final ProductRepository productRepository = mock(ProductRepository.class);
   private final FindProductsService findProductsService =
-      new FindProductsService(productPersistencePort);
+      new FindProductsService(productRepository);
 
   @BeforeEach
   void resetMocks() {
-    Mockito.reset(productPersistencePort);
+    Mockito.reset(productRepository);
   }
 
   @Test
   void givenASearchQuery_findByNameOrDescription_returnsTheProductsReturnedByThePersistencePort() {
-    when(productPersistencePort.findByNameOrDescription("one")).thenReturn(List.of(TEST_PRODUCT_1));
-    when(productPersistencePort.findByNameOrDescription("two")).thenReturn(List.of(TEST_PRODUCT_2));
-    when(productPersistencePort.findByNameOrDescription("one-two"))
+    when(productRepository.findByNameOrDescription("one")).thenReturn(List.of(TEST_PRODUCT_1));
+    when(productRepository.findByNameOrDescription("two")).thenReturn(List.of(TEST_PRODUCT_2));
+    when(productRepository.findByNameOrDescription("one-two"))
         .thenReturn(List.of(TEST_PRODUCT_1, TEST_PRODUCT_2));
-    when(productPersistencePort.findByNameOrDescription("empty")).thenReturn(List.of());
+    when(productRepository.findByNameOrDescription("empty")).thenReturn(List.of());
 
     assertThat(findProductsService.findByNameOrDescription("one")).containsExactly(TEST_PRODUCT_1);
     assertThat(findProductsService.findByNameOrDescription("two")).containsExactly(TEST_PRODUCT_2);

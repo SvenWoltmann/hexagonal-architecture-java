@@ -1,7 +1,7 @@
 package eu.happycoders.shop.adapter.out.persistence.jpa;
 
 import eu.happycoders.shop.adapter.out.persistence.DemoProducts;
-import eu.happycoders.shop.application.port.out.persistence.ProductPersistencePort;
+import eu.happycoders.shop.application.port.out.persistence.ProductRepository;
 import eu.happycoders.shop.model.product.Product;
 import eu.happycoders.shop.model.product.ProductId;
 import jakarta.persistence.EntityManager;
@@ -15,11 +15,11 @@ import java.util.Optional;
  *
  * @author Sven Woltmann
  */
-public class JpaProductPersistenceAdapter implements ProductPersistencePort {
+public class JpaProductRepository implements ProductRepository {
 
   private final EntityManagerFactory entityManagerFactory;
 
-  public JpaProductPersistenceAdapter(EntityManagerFactory entityManagerFactory) {
+  public JpaProductRepository(EntityManagerFactory entityManagerFactory) {
     this.entityManagerFactory = entityManagerFactory;
     createDemoProducts();
   }

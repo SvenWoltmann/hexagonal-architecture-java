@@ -10,7 +10,7 @@ import java.util.Optional;
  *
  * @author Sven Woltmann
  */
-public interface ProductPersistencePort {
+public interface ProductRepository {
 
   void save(Product product);
 
