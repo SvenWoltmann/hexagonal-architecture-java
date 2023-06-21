@@ -20,9 +20,11 @@ public class GetCartService implements GetCartUseCase {
   }
 
   @Override
-  public Cart getCart(CustomerId customerId) {
-    Objects.requireNonNull(customerId, "'customerId' must not be null");
+  public Cart getCart(CustomerId customerIdVeryLong) {
+    Objects.requireNonNull(customerIdVeryLong, "'customerId' must not be null");
 
-    return cartRepository.findByCustomerId(customerId).orElseGet(() -> new Cart(customerId));
+    return cartRepository
+        .findByCustomerId(customerIdVeryLong)
+        .orElseGet(() -> new Cart(customerIdVeryLong));
   }
 }

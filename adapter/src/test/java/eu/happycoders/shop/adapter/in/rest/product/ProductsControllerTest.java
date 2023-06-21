@@ -131,13 +131,17 @@ class ProductsControllerTest {
 
     @Override
     public Set<Object> getSingletons() {
-      return Set.of(productsController());
+      return Set.of(getProductController(), findProductsController());
     }
 
-    private ProductsController productsController() {
+    private GetProductController getProductController() {
       getProductUseCase = mock(GetProductUseCase.class);
+      return new GetProductController(getProductUseCase);
+    }
+
+    private FindProductsController findProductsController() {
       findProductsUseCase = mock(FindProductsUseCase.class);
-      return new ProductsController(getProductUseCase, findProductsUseCase);
+      return new FindProductsController(findProductsUseCase);
     }
   }
 }

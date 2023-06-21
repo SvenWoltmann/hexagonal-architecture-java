@@ -194,14 +194,22 @@ class CartsControllerTest {
 
     @Override
     public Set<Object> getSingletons() {
-      return Set.of(cartController());
+      return Set.of(addToCartController(), getCartController(), emptyCartController());
     }
 
-    private CartsController cartController() {
+    private AddToCartController addToCartController() {
       addToCartUseCase = mock(AddToCartUseCase.class);
+      return new AddToCartController(addToCartUseCase);
+    }
+
+    private GetCartController getCartController() {
       getCartUseCase = mock(GetCartUseCase.class);
+      return new GetCartController(getCartUseCase);
+    }
+
+    private EmptyCartController emptyCartController() {
       emptyCartUseCase = mock(EmptyCartUseCase.class);
-      return new CartsController(addToCartUseCase, getCartUseCase, emptyCartUseCase);
+      return new EmptyCartController(emptyCartUseCase);
     }
   }
 }

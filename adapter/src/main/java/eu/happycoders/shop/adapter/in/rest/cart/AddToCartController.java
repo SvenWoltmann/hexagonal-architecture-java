@@ -1,18 +1,15 @@
 package eu.happycoders.shop.adapter.in.rest.cart;
 
 import static eu.happycoders.shop.adapter.in.rest.common.ControllerCommons.clientErrorException;
-import static eu.happycoders.shop.adapter.in.rest.product.ProductsController.parseProductId;
+import static eu.happycoders.shop.adapter.in.rest.common.CustomerIdParser.parseCustomerId;
+import static eu.happycoders.shop.adapter.in.rest.common.ProductIdParser.parseProductId;
 
 import eu.happycoders.shop.application.port.in.cart.AddToCartUseCase;
-import eu.happycoders.shop.application.port.in.cart.EmptyCartUseCase;
-import eu.happycoders.shop.application.port.in.cart.GetCartUseCase;
 import eu.happycoders.shop.application.port.in.cart.ProductNotFoundException;
 import eu.happycoders.shop.model.cart.Cart;
 import eu.happycoders.shop.model.cart.NotEnoughItemsInStockException;
 import eu.happycoders.shop.model.customer.CustomerId;
 import eu.happycoders.shop.model.product.ProductId;
-import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -28,27 +25,12 @@ import jakarta.ws.rs.core.Response;
  */
 @Path("/carts")
 @Produces(MediaType.APPLICATION_JSON)
-public class CartsController {
+public class AddToCartController {
 
   private final AddToCartUseCase addToCartUseCase;
-  private final GetCartUseCase getCartUseCase;
-  private final EmptyCartUseCase emptyCartUseCase;
 
-  public CartsController(
-      AddToCartUseCase addToCartUseCase,
-      GetCartUseCase getCartUseCase,
-      EmptyCartUseCase emptyCartUseCase) {
+  public AddToCartController(AddToCartUseCase addToCartUseCase) {
     this.addToCartUseCase = addToCartUseCase;
-    this.getCartUseCase = getCartUseCase;
-    this.emptyCartUseCase = emptyCartUseCase;
-  }
-
-  @GET
-  @Path("/{customerId}")
-  public CartWebModel getCart(@PathParam("customerId") String customerIdString) {
-    CustomerId customerId = parseCustomerId(customerIdString);
-    Cart cart = getCartUseCase.getCart(customerId);
-    return CartWebModel.fromDomainModel(cart);
   }
 
   @POST
@@ -69,22 +51,6 @@ public class CartsController {
     } catch (NotEnoughItemsInStockException e) {
       throw clientErrorException(
           Response.Status.BAD_REQUEST, "Only %d items in stock".formatted(e.itemsInStock()));
-    }
-  }
-
-  @DELETE
-  @Path("/{customerId}")
-  public Response deleteCart(@PathParam("customerId") String customerIdString) {
-    CustomerId customerId = parseCustomerId(customerIdString);
-    emptyCartUseCase.emptyCart(customerId);
-    return Response.noContent().build();
-  }
-
-  private static CustomerId parseCustomerId(String string) {
-    try {
-      return new CustomerId(Integer.parseInt(string));
-    } catch (IllegalArgumentException e) {
-      throw clientErrorException(Response.Status.BAD_REQUEST, "Invalid 'customerId'");
     }
   }
 }
