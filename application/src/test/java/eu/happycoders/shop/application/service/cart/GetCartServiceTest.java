@@ -11,7 +11,6 @@ import eu.happycoders.shop.model.cart.NotEnoughItemsInStockException;
 import eu.happycoders.shop.model.customer.CustomerId;
 import eu.happycoders.shop.model.product.Product;
 import java.util.Optional;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -23,11 +22,6 @@ class GetCartServiceTest {
 
   private final CartRepository cartRepository = mock(CartRepository.class);
   private final GetCartService getCartService = new GetCartService(cartRepository);
-
-  @BeforeEach
-  void resetMocks() {
-    Mockito.reset(cartRepository);
-  }
 
   @Test
   void givenCartIsPersisted_getCart_returnsPersistedCart() throws NotEnoughItemsInStockException {

@@ -11,9 +11,7 @@ import eu.happycoders.shop.application.port.out.persistence.ProductRepository;
 import eu.happycoders.shop.model.product.Product;
 import java.util.List;
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 class FindProductsServiceTest {
 
@@ -23,11 +21,6 @@ class FindProductsServiceTest {
   private final ProductRepository productRepository = mock(ProductRepository.class);
   private final FindProductsService findProductsService =
       new FindProductsService(productRepository);
-
-  @BeforeEach
-  void resetMocks() {
-    Mockito.reset(productRepository);
-  }
 
   @Test
   void givenASearchQuery_findByNameOrDescription_returnsTheProductsReturnedByThePersistencePort() {

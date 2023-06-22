@@ -23,7 +23,6 @@ import java.util.Optional;
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 class AddToCartServiceTest {
 
@@ -37,9 +36,7 @@ class AddToCartServiceTest {
       new AddToCartService(cartRepository, productRepository);
 
   @BeforeEach
-  void resetMocks() {
-    Mockito.reset(cartRepository, productRepository);
-
+  void initTestDoubles() {
     when(productRepository.findById(TEST_PRODUCT_1.id())).thenReturn(Optional.of(TEST_PRODUCT_1));
 
     when(productRepository.findById(TEST_PRODUCT_2.id())).thenReturn(Optional.of(TEST_PRODUCT_2));

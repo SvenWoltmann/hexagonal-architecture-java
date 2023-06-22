@@ -5,9 +5,7 @@ import static org.mockito.Mockito.verify;
 
 import eu.happycoders.shop.application.port.out.persistence.CartRepository;
 import eu.happycoders.shop.model.customer.CustomerId;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 class EmptyCartServiceTest {
 
@@ -15,11 +13,6 @@ class EmptyCartServiceTest {
 
   private final CartRepository cartRepository = mock(CartRepository.class);
   private final EmptyCartService emptyCartService = new EmptyCartService(cartRepository);
-
-  @BeforeEach
-  void resetMocks() {
-    Mockito.reset(cartRepository);
-  }
 
   @Test
   void emptyCart_invokesDeleteOnThePersistencePort() {
