@@ -1,0 +1,42 @@
+@startuml
+abstract class AbstractProductRepositoryTest {
+    - productRepository : ProductRepository
+    # {abstract} createProductRepository() : ProductRepository
+    ~ test1()
+    ~ test2()
+    ~ test3()
+    ~ {method} ...
+}
+
+abstract class AbstractCartRepositoryTest {
+    - cartRepository : CartRepository
+    - productRepository : ProductRepository
+    # {abstract} createCartRepository() : CartRepository
+    # {abstract} createProductRepository() : ProductRepository
+    ~ test1()
+    ~ test2()
+    ~ test3()
+    ~ {method} ...
+}
+
+class InMemoryProductRepositoryTest extends AbstractProductRepositoryTest {
+    # createProductRepository() : ProductRepository
+}
+class InMemoryCartRepositoryTest extends AbstractCartRepositoryTest {
+    # createCartRepository() : CartRepository
+    # createProductRepository() : ProductRepository
+}
+
+class JpaProductRepositoryTest extends AbstractProductRepositoryTest {
+    - {static} mysql : MySQLContainer
+    - {static} entityManagerFactory : EntityManagerFactory
+    # createProductRepository() : ProductRepository
+    ~ {static} startDatabase()
+    ~ {static} stopDatabase()
+}
+class JpaCartRepositoryTest extends AbstractCartRepositoryTest {
+    # createCartRepository() : CartRepository
+    # createProductRepository() : ProductRepository
+}
+
+@enduml
