@@ -11,7 +11,7 @@ class InMemoryCartRepositoryTest
   }
 
   @Override
-  protected InMemoryProductRepository createProductPersistenceAdapter() {
+  protected InMemoryProductRepository createProductRepository() {
     return new InMemoryProductRepository();
   }
 }

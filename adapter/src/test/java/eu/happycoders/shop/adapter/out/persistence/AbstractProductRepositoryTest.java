@@ -7,11 +7,19 @@ import eu.happycoders.shop.model.product.Product;
 import eu.happycoders.shop.model.product.ProductId;
 import java.util.List;
 import java.util.Optional;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public abstract class AbstractProductRepositoryTest<T extends ProductRepository> {
 
-  protected T productRepository;
+  private T productRepository;
+
+  @BeforeEach
+  void initRepository() {
+    productRepository = createProductRepository();
+  }
+
+  protected abstract T createProductRepository();
 
   @Test
   void givenTestProductsAndATestProductId_findById_returnsATestProduct() {
@@ -32,7 +40,8 @@ public abstract class AbstractProductRepositoryTest<T extends ProductRepository>
   }
 
   @Test
-  void givenTestProductsAndASearchQueryNotMatchingAndProduct_findById_returnsAnEmptyList() {
+  void
+      givenTestProductsAndASearchQueryNotMatchingAndProduct_findByNameOrDescription_returnsAnEmptyList() {
     String query = "not matching any product";
 
     List<Product> products = productRepository.findByNameOrDescription(query);
@@ -41,7 +50,8 @@ public abstract class AbstractProductRepositoryTest<T extends ProductRepository>
   }
 
   @Test
-  void givenTestProductsAndASearchQueryMatchingOneProduct_findById_returnsThatProduct() {
+  void
+      givenTestProductsAndASearchQueryMatchingOneProduct_findByNameOrDescription_returnsThatProduct() {
     String query = "lights";
 
     List<Product> products = productRepository.findByNameOrDescription(query);
@@ -50,7 +60,8 @@ public abstract class AbstractProductRepositoryTest<T extends ProductRepository>
   }
 
   @Test
-  void givenTestProductsAndASearchQueryMatchingTwoProducts_findById_returnsThoseProducts() {
+  void
+      givenTestProductsAndASearchQueryMatchingTwoProducts_findByNameOrDescription_returnsThoseProducts() {
     String query = "monitor";
 
     List<Product> products = productRepository.findByNameOrDescription(query);

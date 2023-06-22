@@ -29,7 +29,7 @@ class JpaCartRepositoryTest
   }
 
   @Override
-  protected JpaProductRepository createProductPersistenceAdapter() {
+  protected JpaProductRepository createProductRepository() {
     return new JpaProductRepository(entityManagerFactory);
   }
 

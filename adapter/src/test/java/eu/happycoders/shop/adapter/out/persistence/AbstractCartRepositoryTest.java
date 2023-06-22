@@ -24,10 +24,10 @@ public abstract class AbstractCartRepositoryTest<
 
   private static final AtomicInteger CUSTOMER_ID_SEQUENCE_GENERATOR = new AtomicInteger();
 
-  protected T cartRepository;
+  private T cartRepository;
 
   @BeforeEach
-  void resetPersistenceAdapter() {
+  void initRepositories() {
     cartRepository = createCartRepository();
     persistTestProducts();
   }
@@ -35,12 +35,12 @@ public abstract class AbstractCartRepositoryTest<
   protected abstract T createCartRepository();
 
   private void persistTestProducts() {
-    U productPersistenceAdapter = createProductPersistenceAdapter();
-    productPersistenceAdapter.save(TEST_PRODUCT_1);
-    productPersistenceAdapter.save(TEST_PRODUCT_2);
+    U productRepository = createProductRepository();
+    productRepository.save(TEST_PRODUCT_1);
+    productRepository.save(TEST_PRODUCT_2);
   }
 
-  protected abstract U createProductPersistenceAdapter();
+  protected abstract U createProductRepository();
 
   @Test
   void givenACustomerIdForWhichNoCartIsPersisted_findByCustomerId_returnsAnEmptyOptional() {

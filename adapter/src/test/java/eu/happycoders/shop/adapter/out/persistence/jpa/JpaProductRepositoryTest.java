@@ -4,7 +4,6 @@ import eu.happycoders.shop.adapter.out.persistence.AbstractProductRepositoryTest
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
@@ -23,9 +22,9 @@ class JpaProductRepositoryTest extends AbstractProductRepositoryTest<JpaProductR
             mysql.getJdbcUrl(), "root", "test");
   }
 
-  @BeforeEach
-  void setUpPersistenceAdapter() {
-    productRepository = new JpaProductRepository(entityManagerFactory);
+  @Override
+  protected JpaProductRepository createProductRepository() {
+    return new JpaProductRepository(entityManagerFactory);
   }
 
   @AfterAll
