@@ -54,32 +54,6 @@ The connection parameters for the database are hardcoded in `BootWithRestEasyUnd
 
 The following `curl` commands assume that you have installed `jq`, a tool for pretty-printing JSON strings.
 
-## Get a Product
-
-The shop contains four sample products by default, you can get them as follows:
-
-```shell
-curl localhost:8081/products/TTKQ8NJZ | jq
-curl localhost:8081/products/K3SR7PBX | jq
-curl localhost:8081/products/Q3W43CNC | jq
-curl localhost:8081/products/WM3BPG3E | jq
-```
-
-The response of the first query looks like this:
-
-```json
-{
-  "id": "TTKQ8NJZ",
-  "name": "Plastic Sheeting",
-  "description": "Clear plastic sheeting, tear-resistant, tough, and durable",
-  "price": {
-    "currency": "EUR",
-    "amount": 42.99
-  },
-  "itemsInStock": 55
-}
-```
-
 ## Find Products
 
 The following queries return one and two results, respectively:

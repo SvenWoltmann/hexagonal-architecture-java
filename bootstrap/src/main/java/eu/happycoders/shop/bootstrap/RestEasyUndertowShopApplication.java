@@ -4,7 +4,6 @@ import eu.happycoders.shop.adapter.in.rest.cart.AddToCartController;
 import eu.happycoders.shop.adapter.in.rest.cart.EmptyCartController;
 import eu.happycoders.shop.adapter.in.rest.cart.GetCartController;
 import eu.happycoders.shop.adapter.in.rest.product.FindProductsController;
-import eu.happycoders.shop.adapter.in.rest.product.GetProductController;
 import eu.happycoders.shop.adapter.out.persistence.inmemory.InMemoryCartRepository;
 import eu.happycoders.shop.adapter.out.persistence.inmemory.InMemoryProductRepository;
 import eu.happycoders.shop.adapter.out.persistence.jpa.EntityManagerFactoryFactory;
@@ -14,14 +13,12 @@ import eu.happycoders.shop.application.port.in.cart.AddToCartUseCase;
 import eu.happycoders.shop.application.port.in.cart.EmptyCartUseCase;
 import eu.happycoders.shop.application.port.in.cart.GetCartUseCase;
 import eu.happycoders.shop.application.port.in.product.FindProductsUseCase;
-import eu.happycoders.shop.application.port.in.product.GetProductUseCase;
 import eu.happycoders.shop.application.port.out.persistence.CartRepository;
 import eu.happycoders.shop.application.port.out.persistence.ProductRepository;
 import eu.happycoders.shop.application.service.cart.AddToCartService;
 import eu.happycoders.shop.application.service.cart.EmptyCartService;
 import eu.happycoders.shop.application.service.cart.GetCartService;
 import eu.happycoders.shop.application.service.product.FindProductsService;
-import eu.happycoders.shop.application.service.product.GetProductService;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.ws.rs.core.Application;
 import java.util.Set;
@@ -46,7 +43,6 @@ public class RestEasyUndertowShopApplication extends Application {
         addToCartController(),
         getCartController(),
         emptyCartController(),
-        getProductController(),
         findProductsController());
   }
 
@@ -90,11 +86,6 @@ public class RestEasyUndertowShopApplication extends Application {
   private EmptyCartController emptyCartController() {
     EmptyCartUseCase emptyCartUseCase = new EmptyCartService(cartRepository);
     return new EmptyCartController(emptyCartUseCase);
-  }
-
-  private GetProductController getProductController() {
-    GetProductUseCase getProductUseCase = new GetProductService(productRepository);
-    return new GetProductController(getProductUseCase);
   }
 
   private FindProductsController findProductsController() {

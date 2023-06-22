@@ -19,10 +19,8 @@ package "eu:happycoders:shop:application:port:in" {
         CartsController --> AddToCartUseCase
     }
     package "product" {
-        interface GetProductUseCase<<port>> {}
         interface FindProductsUseCase<<port>>
 
-        ProductsController --> GetProductUseCase
         ProductsController --> FindProductsUseCase
     }
 }
@@ -34,7 +32,6 @@ package "eu:happycoders:shop:application:service" {
         AddToCartUseCase <|.. AddToCartService
     }
     package "product" {
-        GetProductUseCase <|.. GetProductService
         FindProductsUseCase <|.. FindProductsService
     }
 }
@@ -49,7 +46,6 @@ package "eu:happycoders:shop:application:port:out:persistence" {
         GetCartService --> CartRepository
 
         FindProductsService --> ProductRepository
-        GetProductService --> ProductRepository
 }
 
 package "eu:happycoders:shop:adapter:out:persistence" {

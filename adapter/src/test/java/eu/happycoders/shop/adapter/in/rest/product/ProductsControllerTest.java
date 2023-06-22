@@ -2,23 +2,19 @@ package eu.happycoders.shop.adapter.in.rest.product;
 
 import static eu.happycoders.shop.adapter.in.rest.HttpTestCommons.TEST_PORT;
 import static eu.happycoders.shop.adapter.in.rest.HttpTestCommons.assertThatResponseIsError;
-import static eu.happycoders.shop.adapter.in.rest.product.ProductsControllerAssertions.assertThatResponseIsProduct;
 import static eu.happycoders.shop.adapter.in.rest.product.ProductsControllerAssertions.assertThatResponseIsProductList;
 import static eu.happycoders.shop.model.money.TestMoneyFactory.euros;
 import static eu.happycoders.shop.model.product.TestProductFactory.createTestProduct;
 import static io.restassured.RestAssured.given;
 import static jakarta.ws.rs.core.Response.Status.BAD_REQUEST;
-import static jakarta.ws.rs.core.Response.Status.NOT_FOUND;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import eu.happycoders.shop.application.port.in.product.FindProductsUseCase;
-import eu.happycoders.shop.application.port.in.product.GetProductUseCase;
 import eu.happycoders.shop.model.product.Product;
 import io.restassured.response.Response;
 import jakarta.ws.rs.core.Application;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
 import org.junit.jupiter.api.AfterAll;
@@ -32,7 +28,6 @@ class ProductsControllerTest {
   private static final Product TEST_PRODUCT_1 = createTestProduct(euros(19, 99));
   private static final Product TEST_PRODUCT_2 = createTestProduct(euros(25, 99));
 
-  private static GetProductUseCase getProductUseCase;
   private static FindProductsUseCase findProductsUseCase;
 
   private static UndertowJaxrsServer server;
@@ -50,37 +45,7 @@ class ProductsControllerTest {
 
   @BeforeEach
   void resetMocks() {
-    Mockito.reset(getProductUseCase, findProductsUseCase);
-  }
-
-  @Test
-  void givenAProduct_getProduct_requestsProductFromUseCaseAndReturnsIt() {
-    when(getProductUseCase.getProduct(TEST_PRODUCT_1.id())).thenReturn(Optional.of(TEST_PRODUCT_1));
-
-    Response response =
-        given()
-            .port(TEST_PORT)
-            .get("/products/" + TEST_PRODUCT_1.id().value())
-            .then()
-            .extract()
-            .response();
-
-    assertThatResponseIsProduct(response, TEST_PRODUCT_1);
-  }
-
-  @Test
-  void givenProductNotFound_getProduct_returnsError() {
-    when(getProductUseCase.getProduct(TEST_PRODUCT_1.id())).thenReturn(Optional.empty());
-
-    Response response =
-        given()
-            .port(TEST_PORT)
-            .get("/products/" + TEST_PRODUCT_1.id().value())
-            .then()
-            .extract()
-            .response();
-
-    assertThatResponseIsError(response, NOT_FOUND, "Product not found");
+    Mockito.reset(findProductsUseCase);
   }
 
   @Test
@@ -131,12 +96,7 @@ class ProductsControllerTest {
 
     @Override
     public Set<Object> getSingletons() {
-      return Set.of(getProductController(), findProductsController());
-    }
-
-    private GetProductController getProductController() {
-      getProductUseCase = mock(GetProductUseCase.class);
-      return new GetProductController(getProductUseCase);
+      return Set.of(findProductsController());
     }
 
     private FindProductsController findProductsController() {
