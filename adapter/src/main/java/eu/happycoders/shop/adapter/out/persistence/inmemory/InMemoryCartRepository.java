@@ -27,7 +27,7 @@ public class InMemoryCartRepository implements CartRepository {
   }
 
   @Override
-  public void deleteById(CustomerId customerId) {
+  public void deleteByCustomerId(CustomerId customerId) {
     carts.remove(customerId);
   }
 }

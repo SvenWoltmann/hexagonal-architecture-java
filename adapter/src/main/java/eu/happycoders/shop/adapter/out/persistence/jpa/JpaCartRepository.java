@@ -41,7 +41,7 @@ public class JpaCartRepository implements CartRepository {
   }
 
   @Override
-  public void deleteById(CustomerId customerId) {
+  public void deleteByCustomerId(CustomerId customerId) {
     try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
       entityManager.getTransaction().begin();
 

@@ -18,6 +18,6 @@ class EmptyCartServiceTest {
   void emptyCart_invokesDeleteOnThePersistencePort() {
     emptyCartService.emptyCart(TEST_CUSTOMER_ID);
 
-    verify(cartRepository).deleteById(TEST_CUSTOMER_ID);
+    verify(cartRepository).deleteByCustomerId(TEST_CUSTOMER_ID);
   }
 }

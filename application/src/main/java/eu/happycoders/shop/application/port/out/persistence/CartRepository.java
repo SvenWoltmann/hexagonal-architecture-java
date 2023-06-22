@@ -15,5 +15,5 @@ public interface CartRepository {
 
   Optional<Cart> findByCustomerId(CustomerId customerId);
 
-  void deleteById(CustomerId customerId);
+  void deleteByCustomerId(CustomerId customerId);
 }

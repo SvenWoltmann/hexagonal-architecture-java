@@ -22,6 +22,6 @@ public class EmptyCartService implements EmptyCartUseCase {
   public void emptyCart(CustomerId customerId) {
     Objects.requireNonNull(customerId, "'customerId' must not be null");
 
-    cartRepository.deleteById(customerId);
+    cartRepository.deleteByCustomerId(customerId);
   }
 }

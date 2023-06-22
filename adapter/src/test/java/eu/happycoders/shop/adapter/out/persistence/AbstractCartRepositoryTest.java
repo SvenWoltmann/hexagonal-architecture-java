@@ -113,7 +113,7 @@ public abstract class AbstractCartRepositoryTest<
   }
 
   @Test
-  void givenExistingCart_deleteById_deletesTheCart() {
+  void givenExistingCart_deleteByCustomerId_deletesTheCart() {
     CustomerId customerId = createUniqueCustomerId();
 
     Cart existingCart = new Cart(customerId);
@@ -121,17 +121,17 @@ public abstract class AbstractCartRepositoryTest<
 
     assertThat(cartRepository.findByCustomerId(customerId)).isNotEmpty();
 
-    cartRepository.deleteById(customerId);
+    cartRepository.deleteByCustomerId(customerId);
 
     assertThat(cartRepository.findByCustomerId(customerId)).isEmpty();
   }
 
   @Test
-  void givenNotExistingCart_deleteById_doesNothing() {
+  void givenNotExistingCart_deleteByCustomerId_doesNothing() {
     CustomerId customerId = createUniqueCustomerId();
     assertThat(cartRepository.findByCustomerId(customerId)).isEmpty();
 
-    cartRepository.deleteById(customerId);
+    cartRepository.deleteByCustomerId(customerId);
 
     assertThat(cartRepository.findByCustomerId(customerId)).isEmpty();
   }
