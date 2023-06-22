@@ -37,16 +37,28 @@ class CartsControllerTest {
   private static final Product TEST_PRODUCT_1 = createTestProduct(euros(19, 99));
   private static final Product TEST_PRODUCT_2 = createTestProduct(euros(25, 99));
 
-  private static AddToCartUseCase addToCartUseCase;
-  private static GetCartUseCase getCartUseCase;
-  private static EmptyCartUseCase emptyCartUseCase;
+  private static final AddToCartUseCase addToCartUseCase = mock(AddToCartUseCase.class);
+  private static final GetCartUseCase getCartUseCase = mock(GetCartUseCase.class);
+  private static final EmptyCartUseCase emptyCartUseCase = mock(EmptyCartUseCase.class);
 
   private static UndertowJaxrsServer server;
 
   @BeforeAll
   static void init() {
-    server = new UndertowJaxrsServer().setPort(TEST_PORT).start();
-    server.deploy(RestEasyUndertowApplication.class);
+    server =
+        new UndertowJaxrsServer()
+            .setPort(TEST_PORT)
+            .start()
+            .deploy(
+                new Application() {
+                  @Override
+                  public Set<Object> getSingletons() {
+                    return Set.of(
+                        new AddToCartController(addToCartUseCase),
+                        new GetCartController(getCartUseCase),
+                        new EmptyCartController(emptyCartUseCase));
+                  }
+                });
   }
 
   @AfterAll
@@ -87,9 +99,8 @@ class CartsControllerTest {
   }
 
   @Test
-  void
-      givenACustomerIdAndProductIdAndQuantity_addLineItem_invokesAddToCartUseCaseAndReturnsUpdatedCart()
-          throws NotEnoughItemsInStockException, ProductNotFoundException {
+  void givenSomeTestData_addLineItem_invokesAddToCartUseCaseAndReturnsUpdatedCart()
+      throws NotEnoughItemsInStockException, ProductNotFoundException {
     CustomerId customerId = TEST_CUSTOMER_ID;
     ProductId productId = TEST_PRODUCT_1.id();
     int quantity = 5;
@@ -188,28 +199,5 @@ class CartsControllerTest {
         .statusCode(NO_CONTENT.getStatusCode());
 
     verify(emptyCartUseCase).emptyCart(customerId);
-  }
-
-  public static class RestEasyUndertowApplication extends Application {
-
-    @Override
-    public Set<Object> getSingletons() {
-      return Set.of(addToCartController(), getCartController(), emptyCartController());
-    }
-
-    private AddToCartController addToCartController() {
-      addToCartUseCase = mock(AddToCartUseCase.class);
-      return new AddToCartController(addToCartUseCase);
-    }
-
-    private GetCartController getCartController() {
-      getCartUseCase = mock(GetCartUseCase.class);
-      return new GetCartController(getCartUseCase);
-    }
-
-    private EmptyCartController emptyCartController() {
-      emptyCartUseCase = mock(EmptyCartUseCase.class);
-      return new EmptyCartController(emptyCartUseCase);
-    }
   }
 }

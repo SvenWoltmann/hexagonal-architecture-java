@@ -28,14 +28,23 @@ class ProductsControllerTest {
   private static final Product TEST_PRODUCT_1 = createTestProduct(euros(19, 99));
   private static final Product TEST_PRODUCT_2 = createTestProduct(euros(25, 99));
 
-  private static FindProductsUseCase findProductsUseCase;
+  private static final FindProductsUseCase findProductsUseCase = mock(FindProductsUseCase.class);
 
   private static UndertowJaxrsServer server;
 
   @BeforeAll
   static void init() {
-    server = new UndertowJaxrsServer().setPort(TEST_PORT).start();
-    server.deploy(RestEasyUndertowApplication.class);
+    server =
+        new UndertowJaxrsServer()
+            .setPort(TEST_PORT)
+            .start()
+            .deploy(
+                new Application() {
+                  @Override
+                  public Set<Object> getSingletons() {
+                    return Set.of(new FindProductsController(findProductsUseCase));
+                  }
+                });
   }
 
   @AfterAll
@@ -90,18 +99,5 @@ class ProductsControllerTest {
             .response();
 
     assertThatResponseIsError(response, BAD_REQUEST, "Invalid 'query'");
-  }
-
-  public static class RestEasyUndertowApplication extends Application {
-
-    @Override
-    public Set<Object> getSingletons() {
-      return Set.of(findProductsController());
-    }
-
-    private FindProductsController findProductsController() {
-      findProductsUseCase = mock(FindProductsUseCase.class);
-      return new FindProductsController(findProductsUseCase);
-    }
   }
 }
