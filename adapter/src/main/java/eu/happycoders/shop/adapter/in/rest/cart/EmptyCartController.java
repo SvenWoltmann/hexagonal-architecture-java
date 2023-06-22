@@ -9,7 +9,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 
 /**
  * REST controller for all shopping cart use cases.
@@ -28,9 +27,8 @@ public class EmptyCartController {
 
   @DELETE
   @Path("/{customerId}")
-  public Response deleteCart(@PathParam("customerId") String customerIdString) {
+  public void deleteCart(@PathParam("customerId") String customerIdString) {
     CustomerId customerId = parseCustomerId(customerIdString);
     emptyCartUseCase.emptyCart(customerId);
-    return Response.noContent().build();
   }
 }
