@@ -12,7 +12,6 @@ It is part of the HappyCoders tutorial series [Hexagonal Architecture - What Is 
 
 In the main branch, you'll find the application implemented without an application framework. It's only using:
 * [RESTEasy](https://resteasy.dev/) (implementing [Jakarta RESTful Web Services](https://jakarta.ee/specifications/restful-ws/)),
-* [Hibernate](https://hibernate.org/) (implementing [Jakarta Persistence API](https://jakarta.ee/specifications/persistence/)), and
 * [Undertow](https://undertow.io/) as a lightweight web server.
 
 There will soon be two additional branches with implementations using [Spring](https://spring.io/) and [Quarkus](https://quarkus.io/) as application frameworks.
@@ -34,21 +33,6 @@ The `model` module is not represented as a hexagon because it is not defined by 
 # How to Run the Application
 
 The easiest way to run the application is to start the `main` method of the `Launcher` class (you'll find it in the `boostrap` module) from your IDE.
-
-You can use one of the following VM options to select a persistence mechanism:
-
-* `-Dpersistence=inmemory` to select the in-memory persistence option (default)
-* `-Dpersistence=mysql` to select the MySQL option
-
-If you selected the MySQL option, you will need a running MySQL database. The easiest way to start one is to use the following Docker command:
-
-```shell
-docker run --name hexagon-mysql -d -p3306:3306 \
-    -e MYSQL_DATABASE=shop -e MYSQL_ROOT_PASSWORD=test mysql:8.0
-```
-
-The connection parameters for the database are hardcoded in `RestEasyUndertowShopApplication.initMySqlAdapter()`. If you are using the Docker container as described above, you can leave the connection parameters as they are. Otherwise, you may need to adjust them.
-
 
 # Example Curl Commands
 
