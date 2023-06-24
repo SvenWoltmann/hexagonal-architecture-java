@@ -11,8 +11,6 @@ import java.util.Objects;
  */
 public record Money(Currency currency, BigDecimal amount) {
 
-  public static final Currency EUR = Currency.getInstance("EUR");
-
   public Money {
     Objects.requireNonNull(currency, "'currency' must not be null");
     Objects.requireNonNull(amount, "'amount' must not be null");

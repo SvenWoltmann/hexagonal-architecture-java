@@ -7,16 +7,19 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Currency;
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.Test;
 
 class MoneyTest {
 
+  private static final Currency EUR = Currency.getInstance("EUR");
+
   @Test
   void givenAmountWithAnInvalidScale_newMoney_throwsIllegalArgumentException() {
     BigDecimal amountWithScale3 = new BigDecimal(BigInteger.valueOf(12999), 3);
 
-    ThrowingCallable invocation = () -> new Money(Money.EUR, amountWithScale3);
+    ThrowingCallable invocation = () -> new Money(EUR, amountWithScale3);
 
     assertThatIllegalArgumentException().isThrownBy(invocation);
   }
@@ -35,7 +38,7 @@ class MoneyTest {
   void givenTheMinorUnit_ofMinor_returnsACorrectMoneyInstance() {
     int cents = 19999;
 
-    Money money = Money.ofMinor(Money.EUR, cents);
+    Money money = Money.ofMinor(EUR, cents);
 
     assertThat(money).isEqualTo(euros(199, 99));
   }
