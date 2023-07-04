@@ -8,7 +8,9 @@
 
 This repository contains a sample Java REST application implemented according to hexagonal architecture.
 
-It is part of the HappyCoders tutorial series [Hexagonal Architecture - What Is It? Why Should You Use It?](https://www.happycoders.eu/software-craftsmanship/hexagonal-architecture/).
+It is part of the HappyCoders tutorial series on Hexagonal Architecture:
+* [Part 1: Hexagonal Architecture - What Is It? Why Should You Use It?](https://www.happycoders.eu/software-craftsmanship/hexagonal-architecture/).
+* [Part 2: Hexagonal Architecture with Java - Tutorial](https://www.happycoders.eu/software-craftsmanship/hexagonal-architecture-java/).
 
 In the main branch, you'll find the application implemented without an application framework. It's only using:
 * [RESTEasy](https://resteasy.dev/) (implementing [Jakarta RESTful Web Services](https://jakarta.ee/specifications/restful-ws/)),
