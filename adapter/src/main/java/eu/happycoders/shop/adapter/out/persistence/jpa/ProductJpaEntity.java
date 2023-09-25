@@ -33,6 +33,5 @@ public class ProductJpaEntity {
   @Column(nullable = false)
   private BigDecimal priceAmount;
 
-  private int priceAmountInMinorUnit;
   private int itemsInStock;
 }

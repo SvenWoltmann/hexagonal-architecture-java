@@ -2,7 +2,6 @@ package eu.happycoders.shop.model.money;
 
 import static eu.happycoders.shop.model.money.TestMoneyFactory.euros;
 import static eu.happycoders.shop.model.money.TestMoneyFactory.usDollars;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 import java.math.BigDecimal;
@@ -32,23 +31,5 @@ class MoneyTest {
     ThrowingCallable invocation = () -> euros.add(dollars);
 
     assertThatIllegalArgumentException().isThrownBy(invocation);
-  }
-
-  @Test
-  void givenTheMinorUnit_ofMinor_returnsACorrectMoneyInstance() {
-    int cents = 19999;
-
-    Money money = Money.ofMinor(EUR, cents);
-
-    assertThat(money).isEqualTo(euros(199, 99));
-  }
-
-  @Test
-  void givenAMoneyInstance_ofMinor_returnsACorrectMoneyInstance() {
-    Money dollars = usDollars(11, 99);
-
-    int amountInMinorUnit = dollars.amountInMinorUnit();
-
-    assertThat(amountInMinorUnit).isEqualTo(1199);
   }
 }

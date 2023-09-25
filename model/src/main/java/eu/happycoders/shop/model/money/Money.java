@@ -26,15 +26,6 @@ public record Money(Currency currency, BigDecimal amount) {
     return new Money(currency, BigDecimal.valueOf(mayor).add(BigDecimal.valueOf(minor, scale)));
   }
 
-  public static Money ofMinor(Currency currency, int minor) {
-    int scale = currency.getDefaultFractionDigits();
-    return new Money(currency, BigDecimal.valueOf(minor, scale));
-  }
-
-  public int amountInMinorUnit() {
-    return amount.scaleByPowerOfTen(amount.scale()).intValue();
-  }
-
   public Money multiply(int multiplicand) {
     return new Money(currency, amount.multiply(BigDecimal.valueOf(multiplicand)));
   }

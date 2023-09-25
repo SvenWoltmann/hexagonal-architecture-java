@@ -20,8 +20,7 @@ final class ProductMapper {
         new ProductId(entity.getId()),
         entity.getName(),
         entity.getDescription(),
-        Money.ofMinor(
-            Currency.getInstance(entity.getPriceCurrency()), entity.getPriceAmountInMinorUnit()),
+        new Money(Currency.getInstance(entity.getPriceCurrency()), entity.getPriceAmount()),
         entity.getItemsInStock());
   }
 
@@ -36,7 +35,6 @@ final class ProductMapper {
     jpaEntity.setName(product.name());
     jpaEntity.setDescription(product.description());
     jpaEntity.setPriceCurrency(product.price().currency().getCurrencyCode());
-    jpaEntity.setPriceAmountInMinorUnit(product.price().amountInMinorUnit());
     jpaEntity.setPriceAmount(product.price().amount());
     jpaEntity.setItemsInStock(product.itemsInStock());
 
