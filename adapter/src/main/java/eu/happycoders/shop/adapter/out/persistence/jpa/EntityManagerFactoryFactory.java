@@ -22,13 +22,13 @@ public final class EntityManagerFactoryFactory {
             "org.hibernate.dialect.MySQLDialect",
             "hibernate.hbm2ddl.auto",
             "update",
-            "javax.persistence.jdbc.driver",
+            "jakarta.persistence.jdbc.driver",
             "com.mysql.jdbc.Driver",
-            "javax.persistence.jdbc.url",
+            "jakarta.persistence.jdbc.url",
             jdbcUrl,
-            "javax.persistence.jdbc.user",
+            "jakarta.persistence.jdbc.user",
             user,
-            "javax.persistence.jdbc.password",
+            "jakarta.persistence.jdbc.password",
             password));
   }
 }
