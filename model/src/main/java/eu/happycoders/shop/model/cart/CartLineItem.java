@@ -2,33 +2,24 @@ package eu.happycoders.shop.model.cart;
 
 import eu.happycoders.shop.model.money.Money;
 import eu.happycoders.shop.model.product.Product;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 
 /**
  * A shopping cart line item with a product and quantity.
  *
  * @author Sven Woltmann
  */
+@Getter
+@Accessors(fluent = true)
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class CartLineItem {
 
   private final Product product;
   private int quantity;
-
-  public CartLineItem(Product product) {
-    this.product = product;
-  }
-
-  CartLineItem(Product product, int quantity) {
-    this.product = product;
-    this.quantity = quantity;
-  }
-
-  public Product product() {
-    return product;
-  }
-
-  public int quantity() {
-    return quantity;
-  }
 
   public void increaseQuantityBy(int augend, int itemsInStock)
       throws NotEnoughItemsInStockException {

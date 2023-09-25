@@ -7,21 +7,22 @@ import eu.happycoders.shop.model.product.ProductId;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 
 /**
  * A shopping cart of a particular customer, containing several line items.
  *
  * @author Sven Woltmann
  */
+@Accessors(fluent = true)
+@RequiredArgsConstructor
 public class Cart {
 
-  private final CustomerId id; // cart ID = customer ID
+  @Getter private final CustomerId id; // cart ID = customer ID
 
   private final Map<ProductId, CartLineItem> lineItems = new LinkedHashMap<>();
-
-  public Cart(CustomerId id) {
-    this.id = id;
-  }
 
   public void addProduct(Product product, int quantity) throws NotEnoughItemsInStockException {
     lineItems
@@ -32,10 +33,6 @@ public class Cart {
   // Use only for reconstituting a Cart entity from the database
   public void putProductIgnoringNotEnoughItemsInStock(Product product, int quantity) {
     lineItems.put(product.id(), new CartLineItem(product, quantity));
-  }
-
-  public CustomerId id() {
-    return id;
   }
 
   public List<CartLineItem> lineItems() {
