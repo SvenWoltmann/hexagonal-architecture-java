@@ -30,14 +30,6 @@
         <sonar.organization>svenwoltmann</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../bootstrap/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-
-        <!-- S8975 wants the return value of EntityManager.merge() used. The JPA
-             adapters merge and commit in one go and do nothing with the managed
-             copy, so there is nothing to use - and the code stays exactly as the
-             article listings show it. -->
-        <sonar.issue.ignore.multicriteria>e1</sonar.issue.ignore.multicriteria>
-        <sonar.issue.ignore.multicriteria.e1.ruleKey>java:S8975</sonar.issue.ignore.multicriteria.e1.ruleKey>
-        <sonar.issue.ignore.multicriteria.e1.resourceKey>**/persistence/jpa/*Repository.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
     </properties>
 
     <dependencies>
@@ -78,29 +70,14 @@
                 <version>1.5.1</version>
             </dependency>
             <dependency>
-                <groupId>com.mysql</groupId>
-                <artifactId>mysql-connector-j</artifactId>
-                <version>26.7.0</version>
-            </dependency>
-            <dependency>
                 <groupId>io.rest-assured</groupId>
                 <artifactId>rest-assured</artifactId>
                 <version>6.0.1</version>
             </dependency>
             <dependency>
-                <groupId>jakarta.persistence</groupId>
-                <artifactId>jakarta.persistence-api</artifactId>
-                <version>3.2.0</version>
-            </dependency>
-            <dependency>
                 <groupId>jakarta.ws.rs</groupId>
                 <artifactId>jakarta.ws.rs-api</artifactId>
                 <version>4.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate.orm</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>7.4.11.Final</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
@@ -111,11 +88,6 @@
                 <groupId>org.jboss.resteasy</groupId>
                 <artifactId>resteasy-jackson2-provider</artifactId>
                 <version>7.0.5.Final</version>
-            </dependency>
-            <dependency>
-                <groupId>org.testcontainers</groupId>
-                <artifactId>testcontainers-mysql</artifactId>
-                <version>2.0.5</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
