@@ -46,7 +46,7 @@ If you selected the MySQL option, you will need a running MySQL database. The ea
 
 ```shell
 docker run --name hexagon-mysql -d -p3306:3306 \
-    -e MYSQL_DATABASE=shop -e MYSQL_ROOT_PASSWORD=test mysql:8.0
+    -e MYSQL_DATABASE=shop -e MYSQL_ROOT_PASSWORD=test mysql:8.1
 ```
 
 The connection parameters for the database are hardcoded in `RestEasyUndertowShopApplication.initMySqlAdapter()`. If you are using the Docker container as described above, you can leave the connection parameters as they are. Otherwise, you may need to adjust them.
