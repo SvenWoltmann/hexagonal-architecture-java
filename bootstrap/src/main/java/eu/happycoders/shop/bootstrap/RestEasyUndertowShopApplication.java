@@ -50,7 +50,7 @@ public class RestEasyUndertowShopApplication extends Application {
     String persistence = System.getProperty("persistence", "inmemory");
     switch (persistence) {
       case "inmemory" -> initInMemoryAdapters();
-      case "mysql" -> initMySqlAdapter();
+      case "mysql" -> initMySqlAdapters();
       default -> throw new IllegalArgumentException(
           "Invalid 'persistence' property: '%s' (allowed: 'inmemory', 'mysql')"
               .formatted(persistence));
@@ -64,7 +64,7 @@ public class RestEasyUndertowShopApplication extends Application {
 
   // The EntityManagerFactory doesn't need to get closed before the application is stopped
   @SuppressWarnings("PMD.CloseResource")
-  private void initMySqlAdapter() {
+  private void initMySqlAdapters() {
     EntityManagerFactory entityManagerFactory =
         EntityManagerFactoryFactory.createMySqlEntityManagerFactory(
             "jdbc:mysql://localhost:3306/shop", "root", "test");
