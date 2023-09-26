@@ -5,6 +5,7 @@ import eu.happycoders.shop.model.product.Product;
 import eu.happycoders.shop.model.product.ProductId;
 import java.util.Currency;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Maps a model product to a JPA product and vice versa.
@@ -14,19 +15,6 @@ import java.util.List;
 final class ProductMapper {
 
   private ProductMapper() {}
-
-  static Product toModelEntity(ProductJpaEntity entity) {
-    return new Product(
-        new ProductId(entity.getId()),
-        entity.getName(),
-        entity.getDescription(),
-        new Money(Currency.getInstance(entity.getPriceCurrency()), entity.getPriceAmount()),
-        entity.getItemsInStock());
-  }
-
-  static List<Product> toModelEntities(List<ProductJpaEntity> entities) {
-    return entities.stream().map(ProductMapper::toModelEntity).toList();
-  }
 
   static ProductJpaEntity toJpaEntity(Product product) {
     ProductJpaEntity jpaEntity = new ProductJpaEntity();
@@ -39,5 +27,22 @@ final class ProductMapper {
     jpaEntity.setItemsInStock(product.itemsInStock());
 
     return jpaEntity;
+  }
+
+  static Optional<Product> toModelEntityOptional(ProductJpaEntity jpaEntity) {
+    return Optional.ofNullable(jpaEntity).map(ProductMapper::toModelEntity);
+  }
+
+  static Product toModelEntity(ProductJpaEntity jpaEntity) {
+    return new Product(
+        new ProductId(jpaEntity.getId()),
+        jpaEntity.getName(),
+        jpaEntity.getDescription(),
+        new Money(Currency.getInstance(jpaEntity.getPriceCurrency()), jpaEntity.getPriceAmount()),
+        jpaEntity.getItemsInStock());
+  }
+
+  static List<Product> toModelEntities(List<ProductJpaEntity> jpaEntities) {
+    return jpaEntities.stream().map(ProductMapper::toModelEntity).toList();
   }
 }

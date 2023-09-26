@@ -41,11 +41,7 @@ public class JpaProductRepository implements ProductRepository {
   public Optional<Product> findById(ProductId productId) {
     try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
       ProductJpaEntity jpaEntity = entityManager.find(ProductJpaEntity.class, productId.value());
-      if (jpaEntity == null) {
-        return Optional.empty();
-      } else {
-        return Optional.of(ProductMapper.toModelEntity(jpaEntity));
-      }
+      return ProductMapper.toModelEntityOptional(jpaEntity);
     }
   }
 

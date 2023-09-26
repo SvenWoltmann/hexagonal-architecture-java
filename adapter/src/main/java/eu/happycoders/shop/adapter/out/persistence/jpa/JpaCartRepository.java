@@ -24,10 +24,7 @@ public class JpaCartRepository implements CartRepository {
   public void save(Cart cart) {
     try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
       entityManager.getTransaction().begin();
-
-      CartJpaEntity cartJpaEntity = CartMapper.toJpaEntity(cart);
-      entityManager.merge(cartJpaEntity);
-
+      entityManager.merge(CartMapper.toJpaEntity(cart));
       entityManager.getTransaction().commit();
     }
   }
@@ -36,7 +33,7 @@ public class JpaCartRepository implements CartRepository {
   public Optional<Cart> findByCustomerId(CustomerId customerId) {
     try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
       CartJpaEntity cartJpaEntity = entityManager.find(CartJpaEntity.class, customerId.value());
-      return CartMapper.toCartModelEntity(cartJpaEntity);
+      return CartMapper.toModelEntityOptional(cartJpaEntity);
     }
   }
 

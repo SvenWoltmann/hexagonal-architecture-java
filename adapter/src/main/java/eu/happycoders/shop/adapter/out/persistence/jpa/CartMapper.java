@@ -19,15 +19,12 @@ final class CartMapper {
     cartJpaEntity.setCustomerId(cart.id().value());
 
     cartJpaEntity.setLineItems(
-        cart.lineItems().stream()
-            .map(lineItem -> toCartLineItemJpaEntity(cartJpaEntity, lineItem))
-            .toList());
+        cart.lineItems().stream().map(lineItem -> toJpaEntity(cartJpaEntity, lineItem)).toList());
 
     return cartJpaEntity;
   }
 
-  static CartLineItemJpaEntity toCartLineItemJpaEntity(
-      CartJpaEntity cartJpaEntity, CartLineItem lineItem) {
+  static CartLineItemJpaEntity toJpaEntity(CartJpaEntity cartJpaEntity, CartLineItem lineItem) {
     ProductJpaEntity productJpaEntity = new ProductJpaEntity();
     productJpaEntity.setId(lineItem.product().id().value());
 
@@ -39,7 +36,7 @@ final class CartMapper {
     return entity;
   }
 
-  static Optional<Cart> toCartModelEntity(CartJpaEntity cartJpaEntity) {
+  static Optional<Cart> toModelEntityOptional(CartJpaEntity cartJpaEntity) {
     if (cartJpaEntity == null) {
       return Optional.empty();
     }
@@ -47,9 +44,10 @@ final class CartMapper {
     CustomerId customerId = new CustomerId(cartJpaEntity.getCustomerId());
     Cart cart = new Cart(customerId);
 
-    for (CartLineItemJpaEntity lineItemEntity : cartJpaEntity.getLineItems()) {
+    for (CartLineItemJpaEntity lineItemJpaEntity : cartJpaEntity.getLineItems()) {
       cart.putProductIgnoringNotEnoughItemsInStock(
-          ProductMapper.toModelEntity(lineItemEntity.getProduct()), lineItemEntity.getQuantity());
+          ProductMapper.toModelEntity(lineItemJpaEntity.getProduct()),
+          lineItemJpaEntity.getQuantity());
     }
 
     return Optional.of(cart);
