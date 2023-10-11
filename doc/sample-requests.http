@@ -1,26 +1,26 @@
 ### Search for products containing "plastic"
-GET http://localhost:8081/products/?query=plastic
+GET http://localhost:8080/products/?query=plastic
 
 ### Search for products containing "monitor"
-GET http://localhost:8081/products/?query=monitor
+GET http://localhost:8080/products/?query=monitor
 
 ### Invalid search (search query too short)
-GET http://localhost:8081/products/?query=x
+GET http://localhost:8080/products/?query=x
 
 ### Get cart
-GET http://localhost:8081/carts/61157
+GET http://localhost:8080/carts/61157
 
 ### Add "Plastic Sheeting" to cart
-POST http://localhost:8081/carts/61157/line-items?productId=TTKQ8NJZ&quantity=20
+POST http://localhost:8080/carts/61157/line-items?productId=TTKQ8NJZ&quantity=20
 
 ### Add "27-Inch Curved Computer Monitor" to cart
-POST http://localhost:8081/carts/61157/line-items?productId=K3SR7PBX&quantity=2
+POST http://localhost:8080/carts/61157/line-items?productId=K3SR7PBX&quantity=2
 
 ### Add "Dual Monitor Desk Mount" to cart
-POST http://localhost:8081/carts/61157/line-items?productId=Q3W43CNC&quantity=1
+POST http://localhost:8080/carts/61157/line-items?productId=Q3W43CNC&quantity=1
 
 ### Add "50ft Led Lights" to cart
-POST http://localhost:8081/carts/61157/line-items?productId=WM3BPG3E&quantity=3
+POST http://localhost:8080/carts/61157/line-items?productId=WM3BPG3E&quantity=3
 
 ### Empty cart
-DELETE http://localhost:8081/carts/61157
+DELETE http://localhost:8080/carts/61157

@@ -62,8 +62,8 @@ The following `curl` commands assume that you have installed `jq`, a tool for pr
 The following queries return one and two results, respectively:
 
 ```shell
-curl localhost:8081/products/?query=plastic | jq
-curl localhost:8081/products/?query=monitor | jq
+curl localhost:8080/products/?query=plastic | jq
+curl localhost:8080/products/?query=monitor | jq
 ```
 
 The response of the second query looks like this:
@@ -95,7 +95,7 @@ The response of the second query looks like this:
 To show the cart of user 61157 (this cart is empty when you begin):
 
 ```shell
-curl localhost:8081/carts/61157 | jq
+curl localhost:8080/carts/61157 | jq
 ```
 
 The response should look like this:
@@ -113,10 +113,10 @@ The response should look like this:
 Each of the following commands adds a product to the cart and returns the contents of the cart after the product is added (note that on Windows, you have to replace the single quotes with double quotes):
 
 ```shell
-curl -X POST 'localhost:8081/carts/61157/line-items?productId=TTKQ8NJZ&quantity=20' | jq
-curl -X POST 'localhost:8081/carts/61157/line-items?productId=K3SR7PBX&quantity=2' | jq
-curl -X POST 'localhost:8081/carts/61157/line-items?productId=Q3W43CNC&quantity=1' | jq
-curl -X POST 'localhost:8081/carts/61157/line-items?productId=WM3BPG3E&quantity=3' | jq
+curl -X POST 'localhost:8080/carts/61157/line-items?productId=TTKQ8NJZ&quantity=20' | jq
+curl -X POST 'localhost:8080/carts/61157/line-items?productId=K3SR7PBX&quantity=2' | jq
+curl -X POST 'localhost:8080/carts/61157/line-items?productId=Q3W43CNC&quantity=1' | jq
+curl -X POST 'localhost:8080/carts/61157/line-items?productId=WM3BPG3E&quantity=3' | jq
 ```
 
 After executing two of the four commands, you can see that the cart contains the two products. You also see the total number of items and the sub-total:
@@ -153,7 +153,7 @@ After executing two of the four commands, you can see that the cart contains the
 
 This will increase the number of plastic sheetings to 40:
 ```shell
-curl -X POST 'localhost:8081/carts/61157/line-items?productId=TTKQ8NJZ&quantity=20' | jq
+curl -X POST 'localhost:8080/carts/61157/line-items?productId=TTKQ8NJZ&quantity=20' | jq
 ```
 
 ### Producing an Error Message
@@ -161,7 +161,7 @@ curl -X POST 'localhost:8081/carts/61157/line-items?productId=TTKQ8NJZ&quantity=
 Trying to add another 20 plastic sheetings will result in error message saying that there are only 55 items in stock:
 
 ```shell
-curl -X POST 'localhost:8081/carts/61157/line-items?productId=TTKQ8NJZ&quantity=20' | jq
+curl -X POST 'localhost:8080/carts/61157/line-items?productId=TTKQ8NJZ&quantity=20' | jq
 ```
 
 This is how the error response looks like:
@@ -177,12 +177,12 @@ This is how the error response looks like:
 To empty the cart, send a DELETE command to its URL:
 
 ```shell
-curl -X DELETE localhost:8081/carts/61157
+curl -X DELETE localhost:8080/carts/61157
 ```
 
 To verify it's empty:
 ```shell
-curl localhost:8081/carts/61157 | jq
+curl localhost:8080/carts/61157 | jq
 ```
 
 You'll see an empty cart again.
