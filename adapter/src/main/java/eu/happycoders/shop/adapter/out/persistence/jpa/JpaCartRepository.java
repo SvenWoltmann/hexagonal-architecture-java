@@ -3,6 +3,8 @@ package eu.happycoders.shop.adapter.out.persistence.jpa;
 import eu.happycoders.shop.application.port.out.persistence.CartRepository;
 import eu.happycoders.shop.model.cart.Cart;
 import eu.happycoders.shop.model.customer.CustomerId;
+import io.quarkus.arc.lookup.LookupIfProperty;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import java.util.Optional;
@@ -12,6 +14,8 @@ import java.util.Optional;
  *
  * @author Sven Woltmann
  */
+@LookupIfProperty(name = "persistence", stringValue = "mysql")
+@ApplicationScoped
 public class JpaCartRepository implements CartRepository {
 
   private final EntityManagerFactory entityManagerFactory;
