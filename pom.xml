@@ -88,6 +88,12 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>io.quarkus.platform</groupId>
+                <artifactId>quarkus-maven-plugin</artifactId>
+                <version>${quarkus.platform.version}</version>
+            </plugin>
+
             <!-- Make sure to use the latest compiler and surefire plugins
                  (their versions otherwise depends on the Maven version in use). -->
             <plugin>
