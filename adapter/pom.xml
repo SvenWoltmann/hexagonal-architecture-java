@@ -64,18 +64,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Required temporarily during migration -->
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-undertow</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>mysql</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <!-- To use the "attached test JAR" from the "model" module -->
         <dependency>
             <groupId>eu.happycoders.shop</groupId>

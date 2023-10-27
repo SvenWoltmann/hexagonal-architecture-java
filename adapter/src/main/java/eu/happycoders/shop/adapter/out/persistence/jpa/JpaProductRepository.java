@@ -4,6 +4,8 @@ import eu.happycoders.shop.adapter.out.persistence.DemoProducts;
 import eu.happycoders.shop.application.port.out.persistence.ProductRepository;
 import eu.happycoders.shop.model.product.Product;
 import eu.happycoders.shop.model.product.ProductId;
+import io.quarkus.arc.lookup.LookupIfProperty;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.TypedQuery;
@@ -15,6 +17,8 @@ import java.util.Optional;
  *
  * @author Sven Woltmann
  */
+@LookupIfProperty(name = "persistence", stringValue = "mysql")
+@ApplicationScoped
 public class JpaProductRepository implements ProductRepository {
 
   private final EntityManagerFactory entityManagerFactory;

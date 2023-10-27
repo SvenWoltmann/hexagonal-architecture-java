@@ -1,17 +1,10 @@
 package eu.happycoders.shop.adapter.out.persistence.inmemory;
 
+import eu.happycoders.shop.adapter.AdapterTestProfile;
 import eu.happycoders.shop.adapter.out.persistence.AbstractCartRepositoryTest;
+import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.TestProfile;
 
-class InMemoryCartRepositoryTest
-    extends AbstractCartRepositoryTest<InMemoryCartRepository, InMemoryProductRepository> {
-
-  @Override
-  protected InMemoryCartRepository createCartRepository() {
-    return new InMemoryCartRepository();
-  }
-
-  @Override
-  protected InMemoryProductRepository createProductRepository() {
-    return new InMemoryProductRepository();
-  }
-}
+@QuarkusTest
+@TestProfile(AdapterTestProfile.class)
+class InMemoryCartRepositoryTest extends AbstractCartRepositoryTest {}
