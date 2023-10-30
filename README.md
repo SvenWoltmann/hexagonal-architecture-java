@@ -12,13 +12,28 @@ It is part of the HappyCoders tutorial series on Hexagonal Architecture:
 * [Part 1: Hexagonal Architecture - What Is It? Why Should You Use It?](https://www.happycoders.eu/software-craftsmanship/hexagonal-architecture/).
 * [Part 2: Hexagonal Architecture with Java - Tutorial](https://www.happycoders.eu/software-craftsmanship/hexagonal-architecture-java/).
 * [Part 3: Ports and Adapters Java Tutorial: Adding a Database Adapter](https://www.happycoders.eu/software-craftsmanship/ports-and-adapters-java-tutorial-db/).
+* [Part 4: Hexagonal Architecture with Quarkus - Tutorial](https://www.happycoders.eu/software-craftsmanship/hexagonal-architecture-quarkus/).
 
-In the main branch, you'll find the application implemented without an application framework. It's only using:
+# Branches
+
+## `main`
+
+In the `main` branch, you'll find the application implemented without an application framework. It's only using:
 * [RESTEasy](https://resteasy.dev/) (implementing [Jakarta RESTful Web Services](https://jakarta.ee/specifications/restful-ws/)),
 * [Hibernate](https://hibernate.org/) (implementing [Jakarta Persistence API](https://jakarta.ee/specifications/persistence/)), and
 * [Undertow](https://undertow.io/) as a lightweight web server.
 
-There will soon be two additional branches with implementations using [Spring](https://spring.io/) and [Quarkus](https://quarkus.io/) as application frameworks.
+## `without-jpa-adapters`
+
+In the `without-jpa-adapters` branch, you'll find the application implemented without an application framework and without JPA adapters. It's only using RESTEasy and Undertow.
+
+## `with-quarkus`
+
+In the `with-quarkus` branch, you'll find an implementation using [Quarkus](https://quarkus.io/) as application framework.
+
+## `with-spring`
+
+There will soon be an additional branch with an implementation using [Spring](https://spring.io/) instead of Quarkus.
 
 # Architecture Overview
 
