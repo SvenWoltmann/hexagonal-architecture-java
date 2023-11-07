@@ -3,11 +3,11 @@ package eu.happycoders.shop.adapter.in.rest.common;
 import static eu.happycoders.shop.adapter.in.rest.common.ControllerCommons.clientErrorException;
 
 import eu.happycoders.shop.model.customer.CustomerId;
-import jakarta.ws.rs.core.Response;
+import org.springframework.http.HttpStatus;
 
 /**
- * A parser for customer IDs, throwing a {@link jakarta.ws.rs.ClientErrorException} for invalid
- * customer IDs.
+ * A parser for customer IDs, throwing a {@link
+ * org.springframework.web.client.HttpClientErrorException} for invalid customer IDs.
  *
  * @author Sven Woltmann
  */
@@ -19,7 +19,7 @@ public final class CustomerIdParser {
     try {
       return new CustomerId(Integer.parseInt(string));
     } catch (IllegalArgumentException e) {
-      throw clientErrorException(Response.Status.BAD_REQUEST, "Invalid 'customerId'");
+      throw clientErrorException(HttpStatus.BAD_REQUEST, "Invalid 'customerId'");
     }
   }
 }

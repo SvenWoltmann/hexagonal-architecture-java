@@ -4,19 +4,19 @@ import static eu.happycoders.shop.adapter.in.rest.common.CustomerIdParser.parseC
 
 import eu.happycoders.shop.application.port.in.cart.EmptyCartUseCase;
 import eu.happycoders.shop.model.customer.CustomerId;
-import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * REST controller for all shopping cart use cases.
  *
  * @author Sven Woltmann
  */
-@Path("/carts")
-@Produces(MediaType.APPLICATION_JSON)
+@RestController
+@RequestMapping(path = "/carts")
 public class EmptyCartController {
 
   private final EmptyCartUseCase emptyCartUseCase;
@@ -25,10 +25,10 @@ public class EmptyCartController {
     this.emptyCartUseCase = emptyCartUseCase;
   }
 
-  @DELETE
-  @Path("/{customerId}")
-  public void deleteCart(@PathParam("customerId") String customerIdString) {
+  @DeleteMapping("/{customerId}")
+  public ResponseEntity<Void> deleteCart(@PathVariable("customerId") String customerIdString) {
     CustomerId customerId = parseCustomerId(customerIdString);
     emptyCartUseCase.emptyCart(customerId);
+    return ResponseEntity.noContent().build();
   }
 }

@@ -4,21 +4,20 @@ import static eu.happycoders.shop.adapter.in.rest.common.ControllerCommons.clien
 
 import eu.happycoders.shop.application.port.in.product.FindProductsUseCase;
 import eu.happycoders.shop.model.product.Product;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.QueryParam;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * REST controller for all product use cases.
  *
  * @author Sven Woltmann
  */
-@Path("/products")
-@Produces(MediaType.APPLICATION_JSON)
+@RestController
+@RequestMapping(path = "/products")
 public class FindProductsController {
 
   private final FindProductsUseCase findProductsUseCase;
@@ -27,10 +26,11 @@ public class FindProductsController {
     this.findProductsUseCase = findProductsUseCase;
   }
 
-  @GET
-  public List<ProductInListWebModel> findProducts(@QueryParam("query") String query) {
+  @GetMapping
+  public List<ProductInListWebModel> findProducts(
+      @RequestParam(value = "query", required = false) String query) {
     if (query == null) {
-      throw clientErrorException(Response.Status.BAD_REQUEST, "Missing 'query'");
+      throw clientErrorException(HttpStatus.BAD_REQUEST, "Missing 'query'");
     }
 
     List<Product> products;
@@ -38,7 +38,7 @@ public class FindProductsController {
     try {
       products = findProductsUseCase.findByNameOrDescription(query);
     } catch (IllegalArgumentException e) {
-      throw clientErrorException(Response.Status.BAD_REQUEST, "Invalid 'query'");
+      throw clientErrorException(HttpStatus.BAD_REQUEST, "Invalid 'query'");
     }
 
     return products.stream().map(ProductInListWebModel::fromDomainModel).toList();
