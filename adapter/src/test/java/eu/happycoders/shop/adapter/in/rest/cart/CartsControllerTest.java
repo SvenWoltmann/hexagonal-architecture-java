@@ -5,10 +5,10 @@ import static eu.happycoders.shop.adapter.in.rest.cart.CartsControllerAssertions
 import static eu.happycoders.shop.model.money.TestMoneyFactory.euros;
 import static eu.happycoders.shop.model.product.TestProductFactory.createTestProduct;
 import static io.restassured.RestAssured.given;
-import static jakarta.ws.rs.core.Response.Status.BAD_REQUEST;
-import static jakarta.ws.rs.core.Response.Status.NO_CONTENT;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 import eu.happycoders.shop.application.port.in.cart.AddToCartUseCase;
 import eu.happycoders.shop.application.port.in.cart.EmptyCartUseCase;
@@ -19,27 +19,33 @@ import eu.happycoders.shop.model.cart.NotEnoughItemsInStockException;
 import eu.happycoders.shop.model.customer.CustomerId;
 import eu.happycoders.shop.model.product.Product;
 import eu.happycoders.shop.model.product.ProductId;
-import io.quarkus.test.InjectMock;
-import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.context.ActiveProfiles;
 
-@QuarkusTest
+@ActiveProfiles("test")
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class CartsControllerTest {
 
   private static final CustomerId TEST_CUSTOMER_ID = new CustomerId(61157);
   private static final Product TEST_PRODUCT_1 = createTestProduct(euros(19, 99));
   private static final Product TEST_PRODUCT_2 = createTestProduct(euros(25, 99));
 
-  @InjectMock AddToCartUseCase addToCartUseCase;
-  @InjectMock GetCartUseCase getCartUseCase;
-  @InjectMock EmptyCartUseCase emptyCartUseCase;
+  @LocalServerPort private Integer port;
+
+  @MockBean AddToCartUseCase addToCartUseCase;
+  @MockBean GetCartUseCase getCartUseCase;
+  @MockBean EmptyCartUseCase emptyCartUseCase;
 
   @Test
   void givenASyntacticallyInvalidCustomerId_getCart_returnsAnError() {
     String customerId = "foo";
 
-    Response response = given().get("/carts/" + customerId).then().extract().response();
+    Response response = given().port(port).get("/carts/" + customerId).then().extract().response();
 
     assertThatResponseIsError(response, BAD_REQUEST, "Invalid 'customerId'");
   }
@@ -55,7 +61,8 @@ class CartsControllerTest {
 
     when(getCartUseCase.getCart(customerId)).thenReturn(cart);
 
-    Response response = given().get("/carts/" + customerId.value()).then().extract().response();
+    Response response =
+        given().port(port).get("/carts/" + customerId.value()).then().extract().response();
 
     assertThatResponseIsCart(response, cart);
   }
@@ -74,6 +81,7 @@ class CartsControllerTest {
 
     Response response =
         given()
+            .port(port)
             .queryParam("productId", productId.value())
             .queryParam("quantity", quantity)
             .post("/carts/" + customerId.value() + "/line-items")
@@ -92,6 +100,7 @@ class CartsControllerTest {
 
     Response response =
         given()
+            .port(port)
             .queryParam("productId", productId)
             .queryParam("quantity", quantity)
             .post("/carts/" + customerId.value() + "/line-items")
@@ -114,6 +123,7 @@ class CartsControllerTest {
 
     Response response =
         given()
+            .port(port)
             .queryParam("productId", productId.value())
             .queryParam("quantity", quantity)
             .post("/carts/" + customerId.value() + "/line-items")
@@ -136,6 +146,7 @@ class CartsControllerTest {
 
     Response response =
         given()
+            .port(port)
             .queryParam("productId", productId.value())
             .queryParam("quantity", quantity)
             .post("/carts/" + customerId.value() + "/line-items")
@@ -150,7 +161,7 @@ class CartsControllerTest {
   void givenACustomerId_deleteCart_invokesDeleteCartUseCaseAndReturnsUpdatedCart() {
     CustomerId customerId = TEST_CUSTOMER_ID;
 
-    given().delete("/carts/" + customerId.value()).then().statusCode(NO_CONTENT.getStatusCode());
+    given().port(port).delete("/carts/" + customerId.value()).then().statusCode(NO_CONTENT.value());
 
     verify(emptyCartUseCase).emptyCart(customerId);
   }
