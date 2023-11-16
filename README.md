@@ -47,29 +47,26 @@ The following diagram shows the hexagonal architecture of the application along 
 
 ![Hexagonal Architecture Modules](doc/hexagonal-architecture-modules.png)
 
-The `model` module is not represented as a hexagon because it is not defined by the Hexagonal Architecture. Hexagonal Architecture leaves open what happens inside the application hexagon. 
+The `model` module is not represented as a hexagon because it is not defined by the Hexagonal Architecture. Hexagonal Architecture leaves open what happens inside the application hexagon.
 
 # How to Run the Application
 
-You can run the application in Quarkus dev mode with the following command:
+The easiest way to run the application is to start the `main` method of the `Launcher` class (you'll find it in the `boostrap` module) from your IDE.
+
+By default, the application will run with the in-memory persistence option.
+
+To select the MySQL persistence option, start it with the following VM option: 
+
+`-Dspring.profiles.active=mysql` 
+
+If you selected the MySQL option, you will need a running MySQL database. The easiest way to start one is to use the following Docker command:
 
 ```shell
-mvn test-compile quarkus:dev
+docker run --name hexagon-mysql -d -p3306:3306 \
+    -e MYSQL_DATABASE=shop -e MYSQL_ROOT_PASSWORD=test mysql:8.1
 ```
 
-You can use one of the following VM options to select a persistence mechanism:
-
-* `-Dpersistence=inmemory` to select the in-memory persistence option (default)
-* `-Dpersistence=mysql` to select the MySQL option
-
-For example, to run the application in MySQL mode, enter:
-
-```shell
-mvn test-compile quarkus:dev -Dpersistence=mysql
-```
-
-In dev mode, Quarkus will automatically start a MySQL database using Docker, 
-and it will automatically create all database tables.
+The connection parameters for the database are hardcoded in `application-mysql.properties`. If you are using the Docker container as described above, you can leave the connection parameters as they are. Otherwise, you may need to adjust them.
 
 # Example Curl Commands
 
