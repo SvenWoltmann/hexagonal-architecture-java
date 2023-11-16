@@ -3,7 +3,6 @@ package eu.happycoders.shop.adapter.out.persistence.jpa;
 import eu.happycoders.shop.model.cart.Cart;
 import eu.happycoders.shop.model.cart.CartLineItem;
 import eu.happycoders.shop.model.customer.CustomerId;
-import java.util.Optional;
 
 /**
  * Maps model carts and line items to JPA carts and line items - and vice versa.
@@ -36,11 +35,7 @@ final class CartMapper {
     return entity;
   }
 
-  static Optional<Cart> toModelEntityOptional(CartJpaEntity cartJpaEntity) {
-    if (cartJpaEntity == null) {
-      return Optional.empty();
-    }
-
+  static Cart toModelEntity(CartJpaEntity cartJpaEntity) {
     CustomerId customerId = new CustomerId(cartJpaEntity.getCustomerId());
     Cart cart = new Cart(customerId);
 
@@ -50,6 +45,6 @@ final class CartMapper {
           lineItemJpaEntity.getQuantity());
     }
 
-    return Optional.of(cart);
+    return cart;
   }
 }
