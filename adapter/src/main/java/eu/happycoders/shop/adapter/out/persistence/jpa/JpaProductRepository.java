@@ -4,9 +4,10 @@ import eu.happycoders.shop.adapter.out.persistence.DemoProducts;
 import eu.happycoders.shop.application.port.out.persistence.ProductRepository;
 import eu.happycoders.shop.model.product.Product;
 import eu.happycoders.shop.model.product.ProductId;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.TypedQuery;
+import io.quarkus.arc.lookup.LookupIfProperty;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,49 +16,42 @@ import java.util.Optional;
  *
  * @author Sven Woltmann
  */
+@LookupIfProperty(name = "persistence", stringValue = "mysql")
+@ApplicationScoped
 public class JpaProductRepository implements ProductRepository {
 
-  private final EntityManagerFactory entityManagerFactory;
+  private final JpaProductPanacheRepository panacheRepository;
 
-  public JpaProductRepository(EntityManagerFactory entityManagerFactory) {
-    this.entityManagerFactory = entityManagerFactory;
-    createDemoProducts();
+  public JpaProductRepository(JpaProductPanacheRepository panacheRepository) {
+    this.panacheRepository = panacheRepository;
   }
 
-  private void createDemoProducts() {
+  @PostConstruct
+  void createDemoProducts() {
     DemoProducts.DEMO_PRODUCTS.forEach(this::save);
   }
 
   @Override
+  @Transactional
   public void save(Product product) {
-    try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-      entityManager.getTransaction().begin();
-      entityManager.merge(ProductMapper.toJpaEntity(product));
-      entityManager.getTransaction().commit();
-    }
+    panacheRepository.getEntityManager().merge(ProductMapper.toJpaEntity(product));
   }
 
   @Override
+  @Transactional
   public Optional<Product> findById(ProductId productId) {
-    try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-      ProductJpaEntity jpaEntity = entityManager.find(ProductJpaEntity.class, productId.value());
-      return ProductMapper.toModelEntityOptional(jpaEntity);
-    }
+    ProductJpaEntity jpaEntity = panacheRepository.findById(productId.value());
+    return ProductMapper.toModelEntityOptional(jpaEntity);
   }
 
   @Override
+  @Transactional
   public List<Product> findByNameOrDescription(String queryString) {
-    try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-      TypedQuery<ProductJpaEntity> query =
-          entityManager
-              .createQuery(
-                  "from ProductJpaEntity where name like :query or description like :query",
-                  ProductJpaEntity.class)
-              .setParameter("query", "%" + queryString + "%");
+    List<ProductJpaEntity> entities =
+        panacheRepository
+            .find("name like ?1 or description like ?1", "%" + queryString + "%")
+            .list();
 
-      List<ProductJpaEntity> entities = query.getResultList();
-
-      return ProductMapper.toModelEntities(entities);
-    }
+    return ProductMapper.toModelEntities(entities);
   }
 }

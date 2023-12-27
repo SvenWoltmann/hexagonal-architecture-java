@@ -1,8 +1,0 @@
-<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
-    <persistence-unit name="eu.happycoders.shop.adapter.out.persistence.jpa">
-        <class>eu.happycoders.shop.adapter.out.persistence.jpa.CartJpaEntity</class>
-        <class>eu.happycoders.shop.adapter.out.persistence.jpa.CartLineItemJpaEntity</class>
-        <class>eu.happycoders.shop.adapter.out.persistence.jpa.ProductJpaEntity</class>
-        <exclude-unlisted-classes>true</exclude-unlisted-classes>
-    </persistence-unit>
-</persistence>
