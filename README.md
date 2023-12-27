@@ -13,6 +13,7 @@ It is part of the HappyCoders tutorial series on Hexagonal Architecture:
 * [Part 2: Hexagonal Architecture with Java - Tutorial](https://www.happycoders.eu/software-craftsmanship/hexagonal-architecture-java/).
 * [Part 3: Ports and Adapters Java Tutorial: Adding a Database Adapter](https://www.happycoders.eu/software-craftsmanship/ports-and-adapters-java-tutorial-db/).
 * [Part 4: Hexagonal Architecture with Quarkus - Tutorial](https://www.happycoders.eu/software-craftsmanship/hexagonal-architecture-quarkus/).
+* [Part 5: Hexagonal Architecture with Spring Boot - Tutorial](https://www.happycoders.eu/software-craftsmanship/hexagonal-architecture-spring-boot/).
 
 # Branches
 
@@ -33,7 +34,7 @@ In the `with-quarkus` branch, you'll find an implementation using [Quarkus](http
 
 ## `with-spring`
 
-There will soon be an additional branch with an implementation using [Spring](https://spring.io/) instead of Quarkus.
+In the `with-quarkus` branch, you'll find an implementation using [Spring](https://spring.io/) as application framework.
 
 # Architecture Overview
 
