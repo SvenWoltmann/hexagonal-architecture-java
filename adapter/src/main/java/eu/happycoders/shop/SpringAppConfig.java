@@ -10,38 +10,40 @@ import eu.happycoders.shop.application.service.cart.AddToCartService;
 import eu.happycoders.shop.application.service.cart.EmptyCartService;
 import eu.happycoders.shop.application.service.cart.GetCartService;
 import eu.happycoders.shop.application.service.product.FindProductsService;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Instance;
-import jakarta.enterprise.inject.Produces;
-import jakarta.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
-class QuarkusAppConfig {
+/**
+ * Spring application configuration, making Spring beans from services defined in application
+ * module.
+ *
+ * @author Sven Woltmann
+ */
+@SpringBootApplication
+public class SpringAppConfig {
 
-  @Inject Instance<CartRepository> cartRepository;
+  @Autowired CartRepository cartRepository;
 
-  @Inject Instance<ProductRepository> productRepository;
+  @Autowired ProductRepository productRepository;
 
-  @Produces
-  @ApplicationScoped
+  @Bean
   GetCartUseCase getCartUseCase() {
-    return new GetCartService(cartRepository.get());
+    return new GetCartService(cartRepository);
   }
 
-  @Produces
-  @ApplicationScoped
+  @Bean
   EmptyCartUseCase emptyCartUseCase() {
-    return new EmptyCartService(cartRepository.get());
+    return new EmptyCartService(cartRepository);
   }
 
-  @Produces
-  @ApplicationScoped
+  @Bean
   FindProductsUseCase findProductsUseCase() {
-    return new FindProductsService(productRepository.get());
+    return new FindProductsService(productRepository);
   }
 
-  @Produces
-  @ApplicationScoped
+  @Bean
   AddToCartUseCase addToCartUseCase() {
-    return new AddToCartService(cartRepository.get(), productRepository.get());
+    return new AddToCartService(cartRepository, productRepository);
   }
 }

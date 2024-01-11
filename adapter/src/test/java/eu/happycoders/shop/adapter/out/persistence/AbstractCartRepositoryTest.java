@@ -11,12 +11,11 @@ import eu.happycoders.shop.model.cart.CartLineItem;
 import eu.happycoders.shop.model.cart.NotEnoughItemsInStockException;
 import eu.happycoders.shop.model.customer.CustomerId;
 import eu.happycoders.shop.model.product.Product;
-import jakarta.enterprise.inject.Instance;
-import jakarta.inject.Inject;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractCartRepositoryTest {
 
@@ -25,20 +24,16 @@ public abstract class AbstractCartRepositoryTest {
 
   private static final AtomicInteger CUSTOMER_ID_SEQUENCE_GENERATOR = new AtomicInteger();
 
-  @Inject Instance<CartRepository> cartRepositoryInstance;
+  @Autowired CartRepository cartRepository;
 
-  @Inject Instance<ProductRepository> productRepositoryInstance;
-
-  private CartRepository cartRepository;
+  @Autowired ProductRepository productRepository;
 
   @BeforeEach
   void initRepositories() {
-    cartRepository = cartRepositoryInstance.get();
     persistTestProducts();
   }
 
   private void persistTestProducts() {
-    ProductRepository productRepository = productRepositoryInstance.get();
     productRepository.save(TEST_PRODUCT_1);
     productRepository.save(TEST_PRODUCT_2);
   }
