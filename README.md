@@ -34,7 +34,7 @@ In the `with-quarkus` branch, you'll find an implementation using [Quarkus](http
 
 ## `with-spring`
 
-In the `with-quarkus` branch, you'll find an implementation using [Spring](https://spring.io/) as application framework.
+In the `with-spring` branch, you'll find an implementation using [Spring](https://spring.io/) as application framework.
 
 # Architecture Overview
 
