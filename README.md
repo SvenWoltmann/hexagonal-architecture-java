@@ -202,3 +202,23 @@ curl localhost:8080/carts/61157 | jq
 ```
 
 You'll see an empty cart again.
+
+## Additional Resources
+
+### Java Versions PDF Cheat Sheet
+👉 Save time and effort with this [compact overview of all new Java features](https://www.happycoders.eu/java-versions/) from the latest version back to Java 10.
+
+In this practical and exclusive collection, you‘ll find the most important updates of each Java version summarized on one page each.
+
+➤ [Hier geht's zur deutschen Version des PDFs](https://www.happycoders.eu/de/java-versionen/)
+
+### The Big O Cheat Sheet
+👉 Use [this FREE 1-page PDF cheat sheet](https://www.happycoders.eu/big-o-cheat-sheet/) as a reference to quickly look up the 7 most important time complexity classes (with descriptions + examples).
+
+➤ [Hier geht's zur deutschen Version des PDFs](https://www.happycoders.eu/de/o-notation-cheat-sheet/)
+
+### HappyCoders Newsletter
+👉 Want to level up your Java skills?
+Sign up for the [HappyCoders newsletter](http://www.happycoders.eu/newsletter/) and get regular tips on programming, algorithms, and data structures!
+
+➤ [Hier geht's zum deutschen Newsletter](https://www.happycoders.eu/de/newsletter/)
