@@ -5,21 +5,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 import eu.happycoders.shop.application.port.out.persistence.ProductRepository;
 import eu.happycoders.shop.model.product.Product;
 import eu.happycoders.shop.model.product.ProductId;
+import jakarta.enterprise.inject.Instance;
+import jakarta.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public abstract class AbstractProductRepositoryTest<T extends ProductRepository> {
+public abstract class AbstractProductRepositoryTest {
 
-  private T productRepository;
+  @Inject Instance<ProductRepository> productRepositoryInstance;
+
+  private ProductRepository productRepository;
 
   @BeforeEach
   void initRepository() {
-    productRepository = createProductRepository();
+    productRepository = productRepositoryInstance.get();
   }
-
-  protected abstract T createProductRepository();
 
   @Test
   void givenTestProductsAndATestProductId_findById_returnsATestProduct() {

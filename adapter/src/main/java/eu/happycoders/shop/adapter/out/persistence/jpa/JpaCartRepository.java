@@ -3,8 +3,9 @@ package eu.happycoders.shop.adapter.out.persistence.jpa;
 import eu.happycoders.shop.application.port.out.persistence.CartRepository;
 import eu.happycoders.shop.model.cart.Cart;
 import eu.happycoders.shop.model.customer.CustomerId;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
+import io.quarkus.arc.lookup.LookupIfProperty;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 import java.util.Optional;
 
 /**
@@ -12,43 +13,32 @@ import java.util.Optional;
  *
  * @author Sven Woltmann
  */
+@LookupIfProperty(name = "persistence", stringValue = "mysql")
+@ApplicationScoped
 public class JpaCartRepository implements CartRepository {
 
-  private final EntityManagerFactory entityManagerFactory;
+  private final JpaCartPanacheRepository panacheRepository;
 
-  public JpaCartRepository(EntityManagerFactory entityManagerFactory) {
-    this.entityManagerFactory = entityManagerFactory;
+  public JpaCartRepository(JpaCartPanacheRepository panacheRepository) {
+    this.panacheRepository = panacheRepository;
   }
 
   @Override
+  @Transactional
   public void save(Cart cart) {
-    try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-      entityManager.getTransaction().begin();
-      entityManager.merge(CartMapper.toJpaEntity(cart));
-      entityManager.getTransaction().commit();
-    }
+    panacheRepository.getEntityManager().merge(CartMapper.toJpaEntity(cart));
   }
 
   @Override
+  @Transactional
   public Optional<Cart> findByCustomerId(CustomerId customerId) {
-    try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-      CartJpaEntity cartJpaEntity = entityManager.find(CartJpaEntity.class, customerId.value());
-      return CartMapper.toModelEntityOptional(cartJpaEntity);
-    }
+    CartJpaEntity cartJpaEntity = panacheRepository.findById(customerId.value());
+    return CartMapper.toModelEntityOptional(cartJpaEntity);
   }
 
   @Override
+  @Transactional
   public void deleteByCustomerId(CustomerId customerId) {
-    try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-      entityManager.getTransaction().begin();
-
-      CartJpaEntity cartJpaEntity = entityManager.find(CartJpaEntity.class, customerId.value());
-
-      if (cartJpaEntity != null) {
-        entityManager.remove(cartJpaEntity);
-      }
-
-      entityManager.getTransaction().commit();
-    }
+    panacheRepository.deleteById(customerId.value());
   }
 }
