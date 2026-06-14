@@ -23,9 +23,9 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -37,9 +37,9 @@ class CartsControllerTest {
 
   @LocalServerPort private Integer port;
 
-  @MockBean AddToCartUseCase addToCartUseCase;
-  @MockBean GetCartUseCase getCartUseCase;
-  @MockBean EmptyCartUseCase emptyCartUseCase;
+  @MockitoBean AddToCartUseCase addToCartUseCase;
+  @MockitoBean GetCartUseCase getCartUseCase;
+  @MockitoBean EmptyCartUseCase emptyCartUseCase;
 
   @Test
   void givenASyntacticallyInvalidCustomerId_getCart_returnsAnError() {

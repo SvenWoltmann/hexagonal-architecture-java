@@ -40,7 +40,7 @@
         </dependency>
         <dependency>
             <groupId>com.tngtech.archunit</groupId>
-            <artifactId>archunit-junit5</artifactId>
+            <artifactId>archunit</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -50,7 +50,7 @@
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
-            <artifactId>mysql</artifactId>
+            <artifactId>testcontainers-mysql</artifactId>
             <scope>test</scope>
         </dependency>
 

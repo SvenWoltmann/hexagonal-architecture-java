@@ -15,9 +15,9 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -28,7 +28,7 @@ class ProductsControllerTest {
 
   @LocalServerPort private Integer port;
 
-  @MockBean FindProductsUseCase findProductsUseCase;
+  @MockitoBean FindProductsUseCase findProductsUseCase;
 
   @Test
   void givenAQueryAndAListOfProducts_findProducts_requestsProductsViaQueryAndReturnsThem() {

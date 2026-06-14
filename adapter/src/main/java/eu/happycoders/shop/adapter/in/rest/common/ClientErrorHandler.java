@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ClientErrorHandler {
 
   @ExceptionHandler(ClientErrorException.class)
-  public ResponseEntity<ErrorEntity> handleProductNotFoundException(ClientErrorException ex) {
+  public ResponseEntity<ErrorEntity> handleClientErrorException(ClientErrorException ex) {
     return ex.getResponse();
   }
 }
