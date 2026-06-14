@@ -23,7 +23,7 @@ public final class EntityManagerFactoryFactory {
             "hibernate.hbm2ddl.auto",
             "update",
             "jakarta.persistence.jdbc.driver",
-            "com.mysql.jdbc.Driver",
+            "com.mysql.cj.jdbc.Driver",
             "jakarta.persistence.jdbc.url",
             jdbcUrl,
             "jakarta.persistence.jdbc.user",

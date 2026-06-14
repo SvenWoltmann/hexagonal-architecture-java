@@ -14,7 +14,7 @@ class JpaProductRepositoryTest extends AbstractProductRepositoryTest<JpaProductR
 
   @BeforeAll
   static void startDatabase() {
-    mysql = new MySQLContainer<>(DockerImageName.parse("mysql:8.1"));
+    mysql = new MySQLContainer<>(DockerImageName.parse("mysql:9.7"));
     mysql.start();
 
     entityManagerFactory =

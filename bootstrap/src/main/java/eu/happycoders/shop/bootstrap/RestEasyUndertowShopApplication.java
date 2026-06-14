@@ -51,9 +51,10 @@ public class RestEasyUndertowShopApplication extends Application {
     switch (persistence) {
       case "inmemory" -> initInMemoryAdapters();
       case "mysql" -> initMySqlAdapters();
-      default -> throw new IllegalArgumentException(
-          "Invalid 'persistence' property: '%s' (allowed: 'inmemory', 'mysql')"
-              .formatted(persistence));
+      default ->
+          throw new IllegalArgumentException(
+              "Invalid 'persistence' property: '%s' (allowed: 'inmemory', 'mysql')"
+                  .formatted(persistence));
     }
   }
 
