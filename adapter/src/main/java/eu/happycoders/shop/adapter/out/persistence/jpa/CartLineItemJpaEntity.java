@@ -1,10 +1,6 @@
 package eu.happycoders.shop.adapter.out.persistence.jpa;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +15,9 @@ import lombok.Setter;
 @Setter
 public class CartLineItemJpaEntity {
 
-  @Id @GeneratedValue private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
   @ManyToOne private CartJpaEntity cart;
 
