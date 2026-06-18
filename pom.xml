@@ -231,9 +231,6 @@
                         <version>3.28.0</version>
                         <configuration>
                             <targetJdk>19</targetJdk>
-                            <rulesets>
-                                <ruleset>pmd-ruleset.xml</ruleset>
-                            </rulesets>
                         </configuration>
                         <dependencies>
                             <dependency>
