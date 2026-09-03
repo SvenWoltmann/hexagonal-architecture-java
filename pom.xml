@@ -27,18 +27,14 @@
         <maven.compiler.release>25</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <pmd.version>7.25.0</pmd.version>
         <lombok.version>1.18.46</lombok.version>
 
-        <!-- SonarCloud configuration -->
+        <!-- SonarQube Cloud configuration -->
         <sonar.projectKey>SvenWoltmann_hexagonal-architecture-java</sonar.projectKey>
         <sonar.moduleKey>hexagonal-architecture-java:${project.artifactId}</sonar.moduleKey>
         <sonar.organization>svenwoltmann</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
-        <sonar.java.spotbugs.reportPaths>target/spotbugsXml.xml</sonar.java.spotbugs.reportPaths>
-        <sonar.java.pmd.reportPaths>target/pmd.xml</sonar.java.pmd.reportPaths>
-        <sonar.java.checkstyle.reportPaths>target/checkstyle-result.xml</sonar.java.checkstyle.reportPaths>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../bootstrap/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
@@ -172,89 +168,7 @@
             </build>
         </profile>
 
-        <!-- Use this profile to run a static code analysis with SpotBugs, PMD, Checkstyle -->
-        <profile>
-            <id>code-analysis</id>
-            <build>
-                <plugins>
-                    <!-- Find bugs with SpotBugs -->
-                    <plugin>
-                        <groupId>com.github.spotbugs</groupId>
-                        <artifactId>spotbugs-maven-plugin</artifactId>
-                        <version>4.10.2.0</version>
-                        <configuration>
-                            <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>spotbugs</goal>
-                                </goals>
-                                <phase>verify</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
 
-                    <!-- Find bugs with PMD -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-pmd-plugin</artifactId>
-                        <version>3.28.0</version>
-                        <configuration>
-                            <targetJdk>19</targetJdk>
-                            <rulesets>
-                                <ruleset>pmd-ruleset.xml</ruleset>
-                            </rulesets>
-                        </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>net.sourceforge.pmd</groupId>
-                                <artifactId>pmd-core</artifactId>
-                                <version>${pmd.version}</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>net.sourceforge.pmd</groupId>
-                                <artifactId>pmd-java</artifactId>
-                                <version>${pmd.version}</version>
-                            </dependency>
-                        </dependencies>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>pmd</goal>
-                                </goals>
-                                <phase>verify</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!-- Validate code style with Checkstyle -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-checkstyle-plugin</artifactId>
-                        <version>3.6.0</version>
-                        <configuration>
-                            <configLocation>./google_checks.xml</configLocation>
-                        </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>com.puppycrawl.tools</groupId>
-                                <artifactId>checkstyle</artifactId>
-                                <version>13.5.0</version>
-                            </dependency>
-                        </dependencies>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                                <phase>verify</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
 
 </project>
