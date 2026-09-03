@@ -144,7 +144,7 @@
                     <java>
                         <googleJavaFormat>
                             <!-- Latest version can be found here: https://github.com/google/google-java-format/releases -->
-                            <version>1.35.0</version>
+                            <version>1.36.1</version>
                             <style>GOOGLE</style>
                         </googleJavaFormat>
                         <lineEndings>UNIX</lineEndings>
