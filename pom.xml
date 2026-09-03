@@ -32,6 +32,14 @@
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../bootstrap/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+
+        <!-- S8975 wants the return value of EntityManager.merge() used. The JPA
+             adapters merge and commit in one go and do nothing with the managed
+             copy, so there is nothing to use - and the code stays exactly as the
+             article listings show it. -->
+        <sonar.issue.ignore.multicriteria>e1</sonar.issue.ignore.multicriteria>
+        <sonar.issue.ignore.multicriteria.e1.ruleKey>java:S8975</sonar.issue.ignore.multicriteria.e1.ruleKey>
+        <sonar.issue.ignore.multicriteria.e1.resourceKey>**/persistence/jpa/*Repository.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
     </properties>
 
     <dependencies>
