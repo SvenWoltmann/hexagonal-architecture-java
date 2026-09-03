@@ -13,7 +13,7 @@ public class Launcher {
 
   private UndertowJaxrsServer server;
 
-  public static void main(String[] args) {
+  static void main() {
     new Launcher().startOnPort(PORT);
   }
 
