@@ -97,7 +97,7 @@
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
                 <artifactId>resteasy-undertow</artifactId>
-                <version>7.0.2.Final</version>
+                <version>7.0.3.Final</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
