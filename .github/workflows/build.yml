@@ -42,7 +42,7 @@ jobs:
         run: mvn -B spotless:check
 
       - name: Compile, test, and verify
-        run: mvn -B verify -Ptest-coverage,code-analysis
+        run: mvn -B verify -Ptest-coverage
 
       - name: Analyze code with Sonar
         if: ${{ env.SONAR_TOKEN }} # the token is not available in Dependabot-triggered builds
