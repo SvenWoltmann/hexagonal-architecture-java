@@ -21,6 +21,8 @@ import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test-with-mysql")
+// Uncomment the following line to run the tests with MongoDB (and comment the previous line)
+//@ActiveProfiles("test-with-mongodb")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CartTest {
 
