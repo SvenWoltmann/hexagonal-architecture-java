@@ -30,6 +30,11 @@
         <sonar.organization>svenwoltmann</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
+        <sonar.issue.ignore.multicriteria>e1</sonar.issue.ignore.multicriteria>
+        <!-- main(String[] args) keeps its conventional signature although Java 25 would accept main() without it; the articles show it this way. -->
+        <sonar.issue.ignore.multicriteria.e1.ruleKey>java:S1172</sonar.issue.ignore.multicriteria.e1.ruleKey>
+        <sonar.issue.ignore.multicriteria.e1.resourceKey>**/Launcher.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
+
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../bootstrap/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
