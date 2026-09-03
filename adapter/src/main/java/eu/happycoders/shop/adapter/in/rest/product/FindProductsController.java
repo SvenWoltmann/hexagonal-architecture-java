@@ -37,7 +37,7 @@ public class FindProductsController {
 
     try {
       products = findProductsUseCase.findByNameOrDescription(query);
-    } catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException _) {
       throw clientErrorException(HttpStatus.BAD_REQUEST, "Invalid 'query'");
     }
 
