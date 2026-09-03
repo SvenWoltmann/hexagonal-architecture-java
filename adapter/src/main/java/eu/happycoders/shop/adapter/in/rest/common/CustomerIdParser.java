@@ -18,7 +18,7 @@ public final class CustomerIdParser {
   public static CustomerId parseCustomerId(String string) {
     try {
       return new CustomerId(Integer.parseInt(string));
-    } catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException _) {
       throw clientErrorException(Response.Status.BAD_REQUEST, "Invalid 'customerId'");
     }
   }

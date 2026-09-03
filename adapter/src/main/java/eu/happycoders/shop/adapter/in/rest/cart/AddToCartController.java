@@ -45,7 +45,7 @@ public class AddToCartController {
     try {
       Cart cart = addToCartUseCase.addToCart(customerId, productId, quantity);
       return CartWebModel.fromDomainModel(cart);
-    } catch (ProductNotFoundException e) {
+    } catch (ProductNotFoundException _) {
       throw clientErrorException(
           Response.Status.BAD_REQUEST, "The requested product does not exist");
     } catch (NotEnoughItemsInStockException e) {

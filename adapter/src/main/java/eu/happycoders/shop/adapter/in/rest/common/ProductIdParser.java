@@ -22,7 +22,7 @@ public final class ProductIdParser {
 
     try {
       return new ProductId(string);
-    } catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException _) {
       throw clientErrorException(Response.Status.BAD_REQUEST, "Invalid 'productId'");
     }
   }
