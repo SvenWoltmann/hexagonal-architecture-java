@@ -22,7 +22,7 @@
         <maven.compiler.release>25</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <lombok.version>1.18.46</lombok.version>
+        <lombok.version>1.18.48</lombok.version>
 
         <!-- SonarQube Cloud configuration -->
         <sonar.projectKey>SvenWoltmann_hexagonal-architecture-java</sonar.projectKey>
