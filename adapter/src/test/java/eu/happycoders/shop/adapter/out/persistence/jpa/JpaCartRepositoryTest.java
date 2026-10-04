@@ -4,18 +4,18 @@ import eu.happycoders.shop.adapter.out.persistence.AbstractCartRepositoryTest;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.mysql.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 class JpaCartRepositoryTest
     extends AbstractCartRepositoryTest<JpaCartRepository, JpaProductRepository> {
 
-  private static MySQLContainer<?> mysql;
+  private static MySQLContainer mysql;
   private static EntityManagerFactory entityManagerFactory;
 
   @BeforeAll
   static void startDatabase() {
-    mysql = new MySQLContainer<>(DockerImageName.parse("mysql:8.0"));
+    mysql = new MySQLContainer(DockerImageName.parse("mysql:9.7"));
     mysql.start();
 
     entityManagerFactory =

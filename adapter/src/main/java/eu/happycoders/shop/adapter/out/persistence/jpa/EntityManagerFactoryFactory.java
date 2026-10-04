@@ -18,12 +18,8 @@ public final class EntityManagerFactoryFactory {
     return Persistence.createEntityManagerFactory(
         "eu.happycoders.shop.adapter.out.persistence.jpa",
         Map.of(
-            "hibernate.dialect",
-            "org.hibernate.dialect.MySQLDialect",
             "hibernate.hbm2ddl.auto",
             "update",
-            "jakarta.persistence.jdbc.driver",
-            "com.mysql.cj.jdbc.Driver",
             "jakarta.persistence.jdbc.url",
             jdbcUrl,
             "jakarta.persistence.jdbc.user",
