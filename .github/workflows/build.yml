@@ -2,9 +2,9 @@ name: build
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, without-jpa-adapters, with-quarkus, with-spring-boot ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, without-jpa-adapters, with-quarkus, with-spring-boot ]
 
 jobs:
   build-jvm:

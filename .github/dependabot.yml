@@ -6,8 +6,47 @@ updates:
     schedule:
       interval: "daily"
 
- # Enable version updates for Maven
+  # Enable version updates for Maven
   - package-ecosystem: "maven"
     directory: "/"
+    schedule:
+      interval: "daily"
+
+  # Dependabot only updates the default branch unless told otherwise.
+  # The tutorial branches don't pick up main's updates by themselves,
+  # so each of them gets its own entries.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "without-jpa-adapters"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "maven"
+    directory: "/"
+    target-branch: "without-jpa-adapters"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "with-quarkus"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "maven"
+    directory: "/"
+    target-branch: "with-quarkus"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "with-spring-boot"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "maven"
+    directory: "/"
+    target-branch: "with-spring-boot"
     schedule:
       interval: "daily"
