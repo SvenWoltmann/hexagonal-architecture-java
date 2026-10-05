@@ -5,23 +5,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import eu.happycoders.shop.application.port.out.persistence.ProductRepository;
 import eu.happycoders.shop.model.product.Product;
 import eu.happycoders.shop.model.product.ProductId;
-import jakarta.enterprise.inject.Instance;
-import jakarta.inject.Inject;
 import java.util.List;
 import java.util.Optional;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractProductRepositoryTest {
 
-  @Inject Instance<ProductRepository> productRepositoryInstance;
-
-  private ProductRepository productRepository;
-
-  @BeforeEach
-  void initRepository() {
-    productRepository = productRepositoryInstance.get();
-  }
+  @Autowired ProductRepository productRepository;
 
   @Test
   void givenTestProductsAndATestProductId_findById_returnsATestProduct() {

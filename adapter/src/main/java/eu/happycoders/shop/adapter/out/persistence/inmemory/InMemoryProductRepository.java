@@ -4,21 +4,21 @@ import eu.happycoders.shop.adapter.out.persistence.DemoProducts;
 import eu.happycoders.shop.application.port.out.persistence.ProductRepository;
 import eu.happycoders.shop.model.product.Product;
 import eu.happycoders.shop.model.product.ProductId;
-import io.quarkus.arc.lookup.LookupIfProperty;
-import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.stereotype.Repository;
 
 /**
  * Persistence adapter: Stores products in memory.
  *
  * @author Sven Woltmann
  */
-@LookupIfProperty(name = "persistence", stringValue = "inmemory", lookupIfMissing = true)
-@ApplicationScoped
+@ConditionalOnProperty(name = "persistence", havingValue = "inmemory", matchIfMissing = true)
+@Repository
 public class InMemoryProductRepository implements ProductRepository {
 
   private final Map<ProductId, Product> products = new ConcurrentHashMap<>();

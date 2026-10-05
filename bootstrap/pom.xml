@@ -11,7 +11,6 @@
     </parent>
 
     <artifactId>bootstrap</artifactId>
-    <packaging>quarkus</packaging>
 
     <dependencies>
         <!-- Internal -->
@@ -35,13 +34,8 @@
 
         <!-- Test scope -->
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit-mockito</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -52,6 +46,11 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers-mysql</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -69,9 +68,8 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>io.quarkus.platform</groupId>
-                <artifactId>quarkus-maven-plugin</artifactId>
-                <extensions>true</extensions>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

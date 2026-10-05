@@ -5,7 +5,6 @@ import eu.happycoders.shop.model.product.Product;
 import eu.happycoders.shop.model.product.ProductId;
 import java.util.Currency;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Maps a model product to a JPA product and vice versa.
@@ -27,10 +26,6 @@ final class ProductMapper {
     jpaEntity.setItemsInStock(product.itemsInStock());
 
     return jpaEntity;
-  }
-
-  static Optional<Product> toModelEntityOptional(ProductJpaEntity jpaEntity) {
-    return Optional.ofNullable(jpaEntity).map(ProductMapper::toModelEntity);
   }
 
   static Product toModelEntity(ProductJpaEntity jpaEntity) {
