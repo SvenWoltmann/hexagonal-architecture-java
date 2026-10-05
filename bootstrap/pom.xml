@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>bootstrap</artifactId>
+    <packaging>quarkus</packaging>
 
     <dependencies>
         <!-- Internal -->
@@ -30,12 +31,6 @@
             <groupId>eu.happycoders.shop</groupId>
             <artifactId>model</artifactId>
             <version>${project.version}</version>
-        </dependency>
-
-        <!-- External -->
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-undertow</artifactId>
         </dependency>
 
         <!-- Test scope -->
@@ -70,6 +65,16 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.quarkus.platform</groupId>
+                <artifactId>quarkus-maven-plugin</artifactId>
+                <extensions>true</extensions>
+            </plugin>
+        </plugins>
+    </build>
 
     <profiles>
         <profile>
