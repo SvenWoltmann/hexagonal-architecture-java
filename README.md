@@ -55,8 +55,12 @@ The `model` module is not represented as a hexagon because it is not defined by 
 You can run the application in Quarkus dev mode with the following command:
 
 ```shell
-mvn quarkus:dev
+mvn test-compile quarkus:dev
 ```
+
+The `test-compile` phase in front compiles the test classes of the `adapter` module.
+The tests of the `bootstrap` module use them, and without it, Quarkus reports a
+compilation error for these tests when it starts.
 
 You can use one of the following VM options to select a persistence mechanism:
 
@@ -66,7 +70,7 @@ You can use one of the following VM options to select a persistence mechanism:
 For example, to run the application in MySQL mode, enter:
 
 ```shell
-mvn quarkus:dev -Dpersistence=mysql
+mvn test-compile quarkus:dev -Dpersistence=mysql
 ```
 
 In dev mode, Quarkus will automatically start a MySQL database using Docker, 
