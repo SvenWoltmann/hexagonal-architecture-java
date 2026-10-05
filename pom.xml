@@ -4,6 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.1.1</version>
+    </parent>
+
     <groupId>eu.happycoders.shop</groupId>
     <artifactId>parent</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -22,7 +28,6 @@
         <maven.compiler.release>25</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <quarkus.platform.version>3.40.1</quarkus.platform.version>
         <lombok.version>1.18.48</lombok.version>
 
         <!-- SonarQube Cloud configuration -->
@@ -31,14 +36,6 @@
         <sonar.organization>svenwoltmann</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../bootstrap/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-
-        <!-- S8975 wants the return value of EntityManager.merge() used. The JPA
-             adapters merge and commit in one go and do nothing with the managed
-             copy, so there is nothing to use - and the code stays exactly as the
-             article listings show it. -->
-        <sonar.issue.ignore.multicriteria>e1</sonar.issue.ignore.multicriteria>
-        <sonar.issue.ignore.multicriteria.e1.ruleKey>java:S8975</sonar.issue.ignore.multicriteria.e1.ruleKey>
-        <sonar.issue.ignore.multicriteria.e1.resourceKey>**/persistence/jpa/*Repository.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
     </properties>
 
     <dependencies>
@@ -54,50 +51,40 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <!-- JUnit version comes from Quarkus BoM -->
+            <!-- JUnit version comes from spring-boot-starter-parent -->
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.27.7</version>
+            <!-- AssertJ version comes from spring-boot-starter-parent -->
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <!-- Mockito version comes from Quarkus BoM -->
+            <!-- Mockito version comes from spring-boot-starter-parent -->
             <scope>test</scope>
         </dependency>
     </dependencies>
 
     <dependencyManagement>
         <dependencies>
-            <!-- Quarkus "Bill of Materials" -->
-            <dependency>
-                <groupId>io.quarkus.platform</groupId>
-                <artifactId>quarkus-bom</artifactId>
-                <version>${quarkus.platform.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
             <dependency>
                 <groupId>com.tngtech.archunit</groupId>
                 <artifactId>archunit</artifactId>
                 <version>1.5.1</version>
+            </dependency>
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>rest-assured</artifactId>
+                <version>6.0.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>io.quarkus.platform</groupId>
-                <artifactId>quarkus-maven-plugin</artifactId>
-                <version>${quarkus.platform.version}</version>
-            </plugin>
-
             <!-- Make sure to use the latest compiler and surefire plugins
                  (their versions otherwise depends on the Maven version in use). -->
             <plugin>

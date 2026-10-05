@@ -1,11 +1,11 @@
 ### Search for products containing "plastic"
-GET http://localhost:8080/products/?query=plastic
+GET http://localhost:8080/products?query=plastic
 
 ### Search for products containing "monitor"
-GET http://localhost:8080/products/?query=monitor
+GET http://localhost:8080/products?query=monitor
 
 ### Invalid search (search query too short)
-GET http://localhost:8080/products/?query=x
+GET http://localhost:8080/products?query=x
 
 ### Get cart
 GET http://localhost:8080/carts/61157

@@ -1,7 +1,7 @@
 package eu.happycoders.shop.adapter.out.persistence.inmemory;
 
 import eu.happycoders.shop.adapter.out.persistence.AbstractCartRepositoryTest;
-import io.quarkus.test.junit.QuarkusTest;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@QuarkusTest
+@SpringBootTest
 class InMemoryCartRepositoryTest extends AbstractCartRepositoryTest {}
