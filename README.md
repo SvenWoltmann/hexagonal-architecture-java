@@ -201,7 +201,7 @@ You'll see an empty cart again.
 
 [<img src="/img/java-versions-cheat-sheet-mockup.png" alt="Java Versions PDF Cheat Sheet Mockup" width="468">](https://www.happycoders.eu/java-versions/)
 
-* Avoid lengthy research with this **concise overview of all Java versions from Java 10 to Java 26**.
+* Avoid lengthy research with this **concise overview of all Java versions from Java 10 to Java 27**.
 * **Discover the innovative features** of each new Java version, summarized on a single page.
 * **Impress your team** with your up-to-date knowledge of the latest Java version.
 
