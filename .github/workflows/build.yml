@@ -5,6 +5,11 @@ on:
     branches: [ main, without-jpa-adapters, with-quarkus, with-spring-boot ]
   pull_request:
     branches: [ main, without-jpa-adapters, with-quarkus, with-spring-boot ]
+  schedule:
+    # SonarQube Cloud removes tokens unused for 60 days, and Dependabot
+    # builds skip the Sonar step, so a quiet repository loses its token.
+    # A monthly run keeps it in use.
+    - cron: '17 4 3 * *'
 
 jobs:
   build-jvm:
